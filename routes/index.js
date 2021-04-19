@@ -32,7 +32,7 @@ router.get('/', async (req, res, next) => {
           },
           {
             type: 'button',
-            action_type: 'submit_action',
+            action_type: 'call_modal',
             value: 'cafe_survey',
             text: '설문 참여하기',
             style: 'default',
