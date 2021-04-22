@@ -1,5 +1,30 @@
 const express = require('express');
 const router = express.Router();
+const questions = require('./questions');
+const modals = require('./modals');
+var mongoose = require('mongoose');
+
+// mongoDB 연결
+mongoose.connect('mongodb+srv://dbuser:dbuser@cluster0.okza5.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, "connection error:"));
+db.once('open', () => {
+	console.log("DB connected");
+});
+
+// Schema 생성
+var Schema = mongoose.Schema;
+
+var User = new Schema({
+	id: String,
+	name: String,
+	date: Date,
+	solved: Number,
+	try: Number
+});
+
+var userModel = mongoose.model('User', User);
+// var userdb = new userModel();
 
 const libKakaoWork = require('../libs/kakaoWork');
 
@@ -17,28 +42,9 @@ router.get('/', async (req, res, next) => {
     conversations.map((conversation) =>
       libKakaoWork.sendMessage({
         conversationId: conversation.id,
-        text: '설문조사 이벤트',
-        blocks: [
-          {
-            type: 'header',
-            text: '☕ 사내 카페 만족도 조사 🥤',
-            style: 'blue',
-          },
-          {
-            type: 'text',
-            text:
-              '어느덧 사내카페가 바뀐지 한달이 되었습니다.\n구르미들이 카페를 이용하고 계신지 의견을 들어보고자 설문 조사를 진행해봅니다!!\n설문에 참여하면 푸짐한 경품 찬스가있으니 상품 꼭 받아가세요! 🎁',
-            markdown: true,
-          },
-          {
-            type: 'button',
-            action_type: 'call_modal',
-            value: 'cafe_survey',
-            text: '설문 참여하기',
-            style: 'default',
-          },
-        ],
-      })
+        text: "소마탈출 넘버원!!",
+		  blocks: questions.chapter1_blocks
+		})
     ),
   ]);
 
@@ -54,61 +60,10 @@ router.post('/request', async (req, res, next) => {
   const { message, value } = req.body;
 
   switch (value) {
-    case 'cafe_survey':
+    case 'start_game':
       // 설문조사용 모달 전송 (3)
       return res.json({
-        view: {
-          title: '설문조사',
-          accept: '설문조사 전송하기',
-          decline: '취소',
-          value: 'cafe_survey_results',
-          blocks: [
-            {
-              type: 'label',
-              text: '카페 평점을 알려주세요',
-              markdown: false,
-            },
-            {
-              type: 'select',
-              name: 'rating',
-              required: true,
-              options: [
-                {
-                  text: '1점',
-                  value: '1',
-                },
-                {
-                  text: '2점',
-                  value: '2',
-                },
-                {
-                  text: '3점',
-                  value: '3',
-                },
-                {
-                  text: '4점',
-                  value: '4',
-                },
-                {
-                  text: '5점',
-                  value: '5',
-                },
-              ],
-              placeholder: '평점',
-            },
-            {
-              type: 'label',
-              text: '바라는 점이 있다면 알려주세요!',
-              markdown: false,
-            },
-            {
-              type: 'input',
-              name: 'wanted',
-              required: false,
-              placeholder: 'ex) 와플을 팔면 좋겠습니다',
-            },
-          ],
-        },
+        view: modals.chapter1_modals
       });
       break;
     default:
@@ -122,53 +77,33 @@ router.post('/callback', async (req, res, next) => {
   const { message, actions, action_time, value } = req.body;
 
   switch (value) {
-    case 'cafe_survey_results':
+    case 'start_game':
       // 설문조사 응답 결과 메세지 전송 (3)
+	  userModel.find({'id':message.user_id}, function(err, docs){
+	  if (docs.length === 0){
+		  var newUser = new userModel({
+		  id: message.user_id,
+		  name: actions.name,
+		  date: new Date(),
+		  solved: 0,
+		  try: 0
+	  		});
+		  newUser.save(function(err){});
+	  	}
+	  })
+	
+	  if (actions.answer !== "start") {
+		  var temp_text = 'Chapter 1';
+		  var temp_blocks = questions.chapter1_blocks;
+	  }
+	  else {
+		  var temp_text = 'Chapter 2';
+		  var temp_blocks = questions.chapter2_blocks;
+	  }
       await libKakaoWork.sendMessage({
         conversationId: message.conversation_id,
-        text: '설문조사에 응해주셔서 감사합니다!',
-        blocks: [
-          {
-            type: 'text',
-            text: '설문조사에 응해주셔서 감사합니다! 🎁',
-            markdown: true,
-          },
-          {
-            type: 'text',
-            text: '*답변 내용*',
-            markdown: true,
-          },
-          {
-            type: 'description',
-            term: '평점',
-            content: {
-              type: 'text',
-              text: actions.rating,
-              markdown: false,
-            },
-            accent: true,
-          },
-          {
-            type: 'description',
-            term: '바라는 점',
-            content: {
-              type: 'text',
-              text: actions.wanted,
-              markdown: false,
-            },
-            accent: true,
-          },
-          {
-            type: 'description',
-            term: '시간',
-            content: {
-              type: 'text',
-              text: action_time,
-              markdown: false,
-            },
-            accent: true,
-          },
-        ],
+        text: temp_text,
+        blocks: temp_blocks,
       });
       break;
     default:
