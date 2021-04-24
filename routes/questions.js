@@ -240,3 +240,25 @@ const chapter7_blocks = {
   },
 };
 exports.chapter7_blocks = appendTextFromObject(chapter7_blocks);
+
+// rakning 페이지 blocks를 하나 더 생성
+const ranking_blocks = {
+  header: {
+    type: "header",
+    text: "Ranking",
+    style: "blue",
+  },
+  text: {
+    type: "text",
+    text: [],
+    markdown: true,
+  },
+  button: {
+    type: "button",
+    action_type: "submit_action",
+    value: "ranking",
+    text: "새로고침",
+    style: "default",
+  },
+};
+exports.ranking_blocks = [...Object.values(ranking_blocks)];
