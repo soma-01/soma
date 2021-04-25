@@ -12,7 +12,7 @@ const answers = ["start", "Sunday", "bcd", "nashot", "wing", "cowork", "3"];
 
 // mongoDB 연결
 mongoose.connect(
-  "mongodb+srv://dbuser:dbuser@cluster0.okza5.mongodb.net/test?retryWrites=true&w=majority",
+  "mongodb+srv://dbuser:dbuser@cluster0.0xa79.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   { useNewUrlParser: true }
 );
 const db = mongoose.connection;
@@ -99,7 +99,7 @@ router.post("/callback", async (req, res, next) => {
         try: 0,
       });
 	  user = newUser;
-      newUser.save(function (err) {});
+      // user.save(function (err) {});
 		current_chapter = 0;
     }
 	  // 이미 유저 정보가 db에 있다면 solved 값을 기준으로
