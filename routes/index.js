@@ -65,7 +65,6 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/request", async (req, res, next) => {
-  console.log(req.body);
   const { message, value } = req.body;
 
   switch (value) {
@@ -85,23 +84,10 @@ router.post("/request", async (req, res, next) => {
 });
 
 router.post("/callback", async (req, res, next) => {
-  console.log(req.body);
   const { message, actions, action_time, value } = req.body;
   
-  var user = mongoose.userEnroll(message,actions);
-  // 설문조사 응답 결과 메세지 전송 (3)
-  // userModel.find({ id: message.user_id }, function (err, docs) {
-  //   if (docs.length === 0) {
-  //     var newUser = new userModel({
-  //       id: message.user_id,
-  //       name: actions.name,
-  //       date: new Date(),
-  //       solved: 0,
-  //       try: 0,
-  //     });
-  //     newUser.save(function (err) {});
-  //   }
-  // });
+  mongoose.userEnroll(message,actions,function(user){
+  console.log(user);
   var flag = 0;
   (user.solved === answers.length) ? flag = 1 : 0;
   // 현재 풀고 있는 챕터일 경우에만 try 증가 
@@ -125,9 +111,10 @@ router.post("/callback", async (req, res, next) => {
   user.save(function(err) {
 	  if (err){
 		  throw err;
+	  }else{
+		  console.log("suc");
 	  }
   })
-
   // 마지막 문제 풀이 시
   if (user.solved === answers.length){
 	  // solved 가 7개인 유저들을 찾아서
@@ -151,6 +138,8 @@ router.post("/callback", async (req, res, next) => {
 	  // res.json({ result: true});
 	  return;
   }
+  });
+ 
 	
   const idx = current_chapter + 1;
   const temp_text = `Chapter ${idx}`;
