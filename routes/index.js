@@ -10,31 +10,10 @@ let current_chapter = 0;
 const answers = ["start", "Sunday", "bcd", "nashot", "wing", "cowork", "3"];
 // 2번 정답 wednesday도 추가해야 함
 
-// // mongoDB 연결
-// mongoose.connect(
-//   "mongodb+srv://dbuser:dbuser@cluster0.okza5.mongodb.net/test?retryWrites=true&w=majority",
-//   { useNewUrlParser: true }
-// );
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//   console.log("DB connected");
-// });
+
 mongoose.databaseInit();
 
-// Schema 생성
-// const Schema = mongoose.Schema;
 
-// const User = new Schema({
-//   id: String,
-//   name: String,
-//   date: Date,
-//   solved: Number,
-//   try: Number,
-// });
-
-// const userModel = mongoose.model("User", User);
-// var userdb = new userModel();
 
 const libKakaoWork = require("../libs/kakaoWork");
 
@@ -86,7 +65,8 @@ router.post("/request", async (req, res, next) => {
 router.post("/callback", async (req, res, next) => {
   const { message, actions, action_time, value } = req.body;
   
-  mongoose.userEnroll(message,actions,function(user){
+  await mongoose.userEnroll(message,actions)
+  .then((user)=>{
   console.log(user);
   var flag = 0;
   (user.solved === answers.length) ? flag = 1 : 0;
@@ -102,8 +82,9 @@ router.post("/callback", async (req, res, next) => {
 	  ) {
 		user.solved++;
 		current_chapter++;
+	  console.log(current_chapter);
 	  }
-	  // try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
+  // try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
   if (current_chapter === answers.length && flag === 0){
 	  user.date = new Date();
   }
@@ -117,38 +98,33 @@ router.post("/callback", async (req, res, next) => {
   })
   // 마지막 문제 풀이 시
   if (user.solved === answers.length){
-	  // solved 가 7개인 유저들을 찾아서
-	  userModel.find({solved: answers.length}, async function(err, docs){
-		  // try 숫자 오름차순으로 정렬 후 (두 번째 정렬 조건으로 문제를 푼 date)
-		  docs.sort((a, b) => {
-					return a.try < b.try ? -1 : a.try > b.try ? -1 : 0;
-					})
-		  // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
-		  var ranking = docs.reduce((a, b) => a + "\n" + `${b.name}   ${b.try}   ${b.date}`, "");
-		  ranking_blocks = questions['ranking_blocks'];
-		  ranking_blocks[1]["text"] = ranking;
-		  console.log(ranking_blocks);
-		  await libKakaoWork.sendMessage({
-			  conversationId: message.conversation_id,
-			  text: "Ranking",
-			  blocks: ranking_blocks,
-		  });
-	  });
-	  // 오류가 나서 일단 주석 처리, res.json은 하나만 있어야 함.
-	  // res.json({ result: true});
-	  return;
-  }
+  // solved 가 7개인 유저들을 찾아서
+  mongoose.userModel.find({solved: answers.length}, async function(err, docs){
+  // try 숫자 오름차순으로 정렬 후 (두 번째 정렬 조건으로 문제를 푼 date)
+  docs.sort((a, b) => {
+  return a.try < b.try ? -1 : a.try > b.try ? -1 : 0;
+  })
+  // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
+  var ranking = docs.reduce((a, b) => a + "\n" + `${b.name}   ${b.try}   ${b.date}`, "");
+  ranking_blocks = questions['ranking_blocks'];
+  ranking_blocks[1]["text"] = ranking;
+  console.log(ranking_blocks);
+  await libKakaoWork.sendMessage({
+  conversationId: message.conversation_id,
+  text: "Ranking",
+  blocks: ranking_blocks,
   });
+  });
+  // 오류가 나서 일단 주석 처리, res.json은 하나만 있어야 함.
+  // res.json({ result: true});
+  return;
+  }
+  })
  
-	
-  const idx = current_chapter + 1;
-  const temp_text = `Chapter ${idx}`;
-  const temp_blocks = questions[`chapter${idx}_blocks`];
-  console.log(temp_blocks);
   await libKakaoWork.sendMessage({
     conversationId: message.conversation_id,
-    text: temp_text,
-    blocks: temp_blocks,
+    text: `Chapter ${current_chapter + 1}`,
+    blocks: questions[`chapter${current_chapter + 1}_blocks`],
   });
 
   res.json({ result: true });

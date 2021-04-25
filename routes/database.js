@@ -25,32 +25,35 @@ function databaseInit(){
 }
 
 
- function userEnroll(message,actions,callback){
+async function userEnroll(message,actions){
 	// 설문조사 응답 결과 메세지 전송 (3)
-	let user;
 	// 유저 정보 조회 없으면 생성하고 db저장, 있으면 가져오기
-	
-	 userModel.find({ id: message.user_id }, function (err, docs) {
-    if (docs.length === 0) {
-      var newUser = new userModel({
-        id: message.user_id,
-        name: actions.name,
-        date: new Date(),
-        solved: 0,
-        try: 0,
-      });
-      newUser.save(function (err) {});
-	  callback(newUser);
-    }
-	else {
-		user = docs[0];
-		current_chapter = user.solved;
-		 callback(user);
-	}
+	return new Promise(function (resolve, reject) {
+		let user;
+		userModel.find({ id: message.user_id }, function (err, docs) {
+		if (docs.length === 0) {
+		  var newUser = new userModel({
+			id: message.user_id,
+			name: actions.name,
+			date: new Date(),
+			solved: 0,
+			try: 0,
+		  });
+		  newUser.save(function (err) {});
+		  resolve(newUser);
+		}
+		else {
+			user = docs[0];
+			current_chapter = user.solved;
+			resolve(user);
+		}
   	});
+	})
+	
 }
 module.exports = {
 	current_chapter,
 	databaseInit,
-	userEnroll
+	userEnroll,
+	userModel
 }
