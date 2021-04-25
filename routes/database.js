@@ -42,8 +42,6 @@ function userEnroll(message,actions){
 }
 module.exports = {
 	current_chapter,
-	User,
-	userModel,
 	databaseInit,
 	userEnroll
 }
