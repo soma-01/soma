@@ -2,16 +2,17 @@
 // text의 값으로 기존 textArray를 각 줄마다 개행문자를 추가하고
 // values 값을 리턴(기존 blocks에 header, text, button 추가함)
 const appendTextFromObject = (obj) => {
-  obj.text.text = obj.text.textArray.reduce((a, b) => a + "\n" + b);
-  if (obj.hasOwnProperty("text2")) {
-    obj.text2.text = obj.text2.textArray.reduce((a, b) => a + "\n" + b);
-    delete obj.text2.textArray;
-  }
-  if (obj.hasOwnProperty("text3")) {
-    obj.text3.text = obj.text3.textArray.reduce((a, b) => a + "\n" + b);
-    delete obj.text3.textArray;
-  }
-  delete obj.text.textArray;
+  const texts = ["text", "text2", "text3"];
+  iter = 0;
+  Object.keys(obj).map((k) => {
+    if (k.includes("text")) {
+      iter++;
+    }
+  });
+  texts.slice(0, iter).map((t) => {
+    obj[t].text = obj[t].textArray.reduce((a, b) => a + "\n" + b);
+    delete obj[t].textArray;
+  });
   return [...Object.values(obj)];
 };
 
