@@ -89,7 +89,9 @@ router.post("/callback", async (req, res, next) => {
 	  }
   // try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
   if (current_chapter == answers.length && flag === 0){
-	  user.date = new Date();
+	  temp = new Date();
+	  // user.date = temp.format('MM-dd HH:mm:ss');
+	  user.date = temp;
 	  flag = 1;
   }
   // try, solved 저장
@@ -110,7 +112,7 @@ router.post("/callback", async (req, res, next) => {
   mongoose.userModel.find({solved: answers.length}, async function(err, docs){
   // try 숫자 오름차순으로 정렬 후 (두 번째 정렬 조건으로 문제를 푼 date)
   docs.sort((a, b) => {
-  return a.try < b.try ? -1 : a.try > b.try ? -1 : 0;
+  return a.try < b.try ? -1 : a.try > b.try ? 1 : 0;
   })
   // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
   var ranking = docs.reduce((a, b) => a + "\n" + `${b.name}   ${b.try}   ${b.date}`, "");
@@ -129,12 +131,14 @@ router.post("/callback", async (req, res, next) => {
   }
   });
   })
-  // 아직 다 못 푼 유저일 경우에만 다음 문제 보냄
-  (flag === 0) ? await libKakaoWork.sendMessage({
+// 아직 다 못 푼 유저일 경우에만 다음 문제 보냄
+  if(flag===0){
+     await libKakaoWork.sendMessage({
     conversationId: message.conversation_id,
     text: `Chapter ${current_chapter + 1}`,
     blocks: questions[`chapter${current_chapter + 1}_blocks`],
-  }) : 0;
+  })
+  }
 
   res.json({ result: true });
 });
