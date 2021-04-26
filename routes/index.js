@@ -63,11 +63,12 @@ router.post("/request", async (req, res, next) => {
 });
 
 router.post("/callback", async (req, res, next) => {
-  const { message, actions, action_time, value } = req.body;
+  const { message, react_user_id, actions, action_time, value } = req.body;
   
-  await mongoose.userEnroll(message,actions)
+  await mongoose.userEnroll(react_user_id,actions)
   .then((user)=>{
   console.log(user);
+  current_chapter = user.solved;
   var flag = 0;
   (user.solved === answers.length) ? flag = 1 : 0;
   // 현재 풀고 있는 챕터일 경우에만 try 증가 
