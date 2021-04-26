@@ -253,13 +253,26 @@ const ranking_blocks = {
     text: [],
     markdown: true,
   },
-  button: {
-    type: "button",
-    action_type: "submit_action",
+	button: {
+	type: "button",
+	action_type: "submit_action",
 	action_name: "refresh",
-    value: "ranking",
-    text: "새로고침",
-    style: "default",
-  },
+	value: "ranking",
+	text: "새로고침",
+	style: "default",
+	},
+	// action: { 
+	// type: "action",
+	// elements: [
+	// 	  {
+	// 		type: "button",
+	// 		action_type: "submit_action",
+	// 		action_name: "refresh",
+	// 		value: "ranking",
+	// 		text: "새로고침",
+	// 		style: "default",
+	// 		},
+	// 	]
+	// },
 };
 exports.ranking_blocks = [...Object.values(ranking_blocks)];

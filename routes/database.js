@@ -11,8 +11,7 @@ let User = new mongoose.Schema({
 let userModel = mongoose.model("User", User);
 
 let current_chapter=0;
-//let User;
-//let userModel;
+
 //DB 연결함수
 function databaseInit(){
   //추후 로컬 주소 환경변수로 설정
@@ -23,15 +22,6 @@ function databaseInit(){
   .then(()=> console.log("DB connected"))
   .catch(e => console.log(e));
 	
-  // User = new mongoose.Schema({
-  // id: { type: String, require: true, unique: true},
-  // name: { type: String, required: true },
-  // date: { type: Date, required: true },
-  // solved: { type: Number, required: true },
-  // try: { type: Number, required: true },
-  // });
-	
-  // userModel = mongoose.model("User", User);
 }
 
 
@@ -49,7 +39,7 @@ async function userEnroll(react_user_id,actions){
 			solved: 0,
 			try: 0,
 		  });
-		  newUser.save(function (err) {});
+		  //newUser.save(function (err) {});
 		  resolve(newUser);
 		}
 		else {
