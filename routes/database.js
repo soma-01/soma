@@ -40,6 +40,7 @@ async function userEnroll(react_user_id,actions){
 			try: 0,
 		  });
 		  //newUser.save(function (err) {});
+		  console.log("new user created");
 		  resolve(newUser);
 		}
 		else {
