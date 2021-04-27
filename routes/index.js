@@ -128,15 +128,20 @@ router.post("/callback", async (req, res, next) => {
 				return nameStr;
 			}
 			var j = 1;
+			console.log(user.date);
             var ranking = docs.reduce(
               (a, b) => a + "\n" + `${j++}위  ${makeName(b.name)}  ${b.try}   ${moment(b.date).format("MM/DD HH:MM")}`,
               "*이름*                        *try*      *완료 시각*      \n"
             );
+			var myRanking=await mongoose.userModel.find({$and : [{solved: 7},{try : { $lte : user.try }},
+																 {date :{ $lt :new Date(`${user.date}`)}}]}).count();
+			myRanking++
+			
             ranking_blocks = questions["ranking_blocks"];
             ranking_blocks[1]["text"] = ranking;
 			ranking_blocks[3]["content"]["text"] = `${user.name}`;
 			ranking_blocks[4]["content"]["text"] = `${user.try}`;
-			ranking_blocks[5]["content"]["text"] = `11위`;
+			ranking_blocks[5]["content"]["text"] = `${myRanking}위`;
             await libKakaoWork.sendMessage({
               conversationId: message.conversation_id,
               text: "Ranking",
