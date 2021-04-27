@@ -394,11 +394,44 @@ const ranking_blocks = {
     text: "Ranking",
     style: "blue",
   },
-  text: {
+  text1: {
     type: "text",
     text: [],
     markdown: true,
   },
+  divider: {
+      "type": "divider"
+  },
+  userText: {
+      type: "description",
+      term: "유저",
+      content: {
+        type: "text",
+        text: "",
+        markdown: false
+      },
+      accent: true
+    },
+  tryText: {
+      type: "description",
+      term: "try",
+      content: {
+        type: "text",
+        text: "",
+        markdown: false
+      },
+      accent: true
+    },
+  rankText: {
+      type: "description",
+      term: "순위",
+      content: {
+        type: "text",
+        text: "",
+        markdown: false
+      },
+      accent: true
+    },
   button: {
     type: "button",
     action_type: "submit_action",

@@ -3,6 +3,7 @@ const router = express.Router();
 const questions = require("./questions");
 const modals = require("./modals");
 const mongoose = require("./database");
+const moment = require('moment');
 
 // 챕터 변수
 let current_chapter = 0;
@@ -64,7 +65,7 @@ router.post("/callback", async (req, res, next) => {
   // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
   await mongoose.userEnroll(react_user_id, actions).then((user) => {
-    console.log(user);
+    console.log("name: ", user.name, "solved: ",user.solved);
     current_chapter = user.solved;
 
     user.solved === answers.length ? (flag = 1) : 0;
@@ -81,13 +82,15 @@ router.post("/callback", async (req, res, next) => {
     ) {
       user.solved++;
       current_chapter++;
-      console.log(current_chapter);
     }
     // try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
     if (current_chapter == answers.length && flag === 0) {
-      temp = new Date();
-      // user.date = temp.format('MM-dd HH:mm:ss');
-      user.date = temp;
+      var curr = new Date();
+	  var utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+	  var kr_curr = new Date(utc + (9*60*60*1000));
+		// var temp = moment(kr_curr).format("MM/DD HH:MM:ss");
+      user.date = kr_curr;
+		console.log(`new finished user: ${user.name} try: ${user.try}`);
       flag = 1;
     }
     // try, solved 저장
@@ -113,13 +116,27 @@ router.post("/callback", async (req, res, next) => {
               return a.try < b.try ? -1 : a.try > b.try ? 1 : 0;
             });
             // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
+			function makeName(name){
+				var nameStr = "";
+				if (name.length<=7){
+					for (var i=0;i<name.length;i++) nameStr += name[i];
+					for (i=0;i<10-name.length;i++) nameStr += "  ";
+				} else{
+					nameStr = name.slice(0,10);
+				}
+				console.log(nameStr);
+				return nameStr;
+			}
+			var j = 1;
             var ranking = docs.reduce(
-              (a, b) => a + "\n" + `${b.name}   ${b.try}   ${b.date}`,
-              ""
+              (a, b) => a + "\n" + `${j++}위  ${makeName(b.name)}  ${b.try}   ${moment(b.date).format("MM/DD HH:MM")}`,
+              "*이름*                        *try*      *완료 시각*      \n"
             );
             ranking_blocks = questions["ranking_blocks"];
             ranking_blocks[1]["text"] = ranking;
-            console.log(ranking_blocks);
+			ranking_blocks[3]["content"]["text"] = `${user.name}`;
+			ranking_blocks[4]["content"]["text"] = `${user.try}`;
+			ranking_blocks[5]["content"]["text"] = `11위`;
             await libKakaoWork.sendMessage({
               conversationId: message.conversation_id,
               text: "Ranking",
@@ -128,7 +145,7 @@ router.post("/callback", async (req, res, next) => {
           }
         );
         // 오류가 나서 일단 주석 처리, res.json은 하나만 있어야 함.
-        res.json({ result: true });
+        
       }
     });
   });
