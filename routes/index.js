@@ -113,7 +113,7 @@ router.post("/callback", async (req, res, next) => {
           async function (err, docs) {
             // try 숫자 오름차순으로 정렬 후 (두 번째 정렬 조건으로 문제를 푼 date)
             docs.sort((a, b) => {
-              return a.try < b.try ? -1 : a.try > b.try ? 1 : 0;
+              return a.try < b.try ? -1 : a.try > b.try ? 1 : a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
             });
             // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
 			function makeName(name){
