@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const questions = require("./questions");
+const hints = require("./hints");
 const modals = require("./modals");
 const mongoose = require("./database");
 const moment = require('moment');
@@ -61,10 +62,20 @@ router.post("/request", async (req, res, next) => {
 });
 
 router.post("/callback", async (req, res, next) => {
-  const { message, react_user_id, actions, action_time, value } = req.body;
+  const { message, react_user_id, actions, action_time, value, action_type, action_name } = req.body;
   // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
-  await mongoose.userEnroll(react_user_id, actions).then((user) => {
+	if(action_name == 'hint') {
+		hintBlock = value + "_blocks";
+		console.log(hintBlock);
+	   await libKakaoWork.sendMessage({
+		   conversationId: message.conversation_id,
+		   text: "소마인을 위한 특별한 힌트!!",
+		   blocks: hints[hintBlock+""],
+	   })
+	}
+	
+	await mongoose.userEnroll(react_user_id, actions).then((user) => {
     console.log("name: ", user.name, "solved: ",user.solved);
     current_chapter = user.solved;
 
