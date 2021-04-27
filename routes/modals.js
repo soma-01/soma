@@ -1,5 +1,5 @@
 exports.chapter1_modals = {
-  title: "modal title",
+  title: "이름 입력하기",
   accept: "확인",
   decline: "취소",
   value: "start_game",
@@ -30,7 +30,7 @@ exports.chapter1_modals = {
 };
 
 exports.chapter2_modals = {
-  title: "modal title",
+  title: "소마탈출 정답 입력하기",
   accept: "확인",
   decline: "취소",
   value: "start_game",
