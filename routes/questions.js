@@ -95,13 +95,26 @@ const chapter2_blocks = {
     textArray: ["(스르륵)"],
     markdown: true,
   },
-  button: {
-    type: "button",
-    action_type: "call_modal",
-    value: "chapter2",
-    text: "정답",
-    style: "default",
-  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint2",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter2",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
 };
 exports.chapter2_blocks = appendTextFromObject(chapter2_blocks);
 
@@ -139,13 +152,26 @@ const chapter3_blocks = {
     url:
       "https://docs.google.com/uc?export=download&id=1XSShn340prDAvues7Qdy6ZwGAOzQG5-p",
   },
-  button: {
-    type: "button",
-    action_type: "call_modal",
-    value: "chapter3",
-    text: "정답",
-    style: "default",
-  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint3",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter3",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
 };
 exports.chapter3_blocks = appendTextFromObject(chapter3_blocks);
 
@@ -210,13 +236,26 @@ const chapter4_blocks = {
     ],
     markdown: true,
   },
-  button: {
-    type: "button",
-    action_type: "call_modal",
-    value: "chapter4",
-    text: "정답",
-    style: "default",
-  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint4",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter4",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
 };
 exports.chapter4_blocks = appendTextFromObject(chapter4_blocks);
 
@@ -267,13 +306,26 @@ const chapter5_blocks = {
     textArray: ["“이건 또 뭐야!!ㅠㅠ”", ""],
     markdown: true,
   },
-  button: {
-    type: "button",
-    action_type: "call_modal",
-    value: "chapter5",
-    text: "정답",
-    style: "default",
-  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint5",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter5",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
 };
 exports.chapter5_blocks = appendTextFromObject(chapter5_blocks);
 
@@ -328,13 +380,26 @@ const chapter6_blocks = {
     url:
       "https://docs.google.com/uc?export=download&id=18qkv2dGJnLFz32KRClnLpHayq1b7dlz3",
   },
-  button: {
-    type: "button",
-    action_type: "call_modal",
-    value: "chapter6",
-    text: "정답",
-    style: "default",
-  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint6",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter6",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
 };
 exports.chapter6_blocks = appendTextFromObject(chapter6_blocks);
 
@@ -377,13 +442,26 @@ const chapter7_blocks = {
     ],
     markdown: true,
   },
-  button: {
-    type: "button",
-    action_type: "call_modal",
-    value: "chapter7",
-    text: "정답",
-    style: "default",
-  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint7",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter7",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
 };
 exports.chapter7_blocks = appendTextFromObject(chapter7_blocks);
 
