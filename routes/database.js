@@ -10,7 +10,6 @@ let User = new mongoose.Schema({
 	
 let userModel = mongoose.model("User", User);
 
-let current_chapter=0;
 
 //DB 연결함수
 function databaseInit(){
@@ -53,7 +52,6 @@ async function userEnroll(react_user_id,actions){
 	
 }
 module.exports = {
-	current_chapter,
 	databaseInit,
 	userEnroll,
 	userModel
