@@ -1,6 +1,7 @@
 # SW Maestro 미니프로젝트 1팀 "소마탈출 넘버원"
 ![npm](https://img.shields.io/badge/npm-v6.11.3-green?style=flat-square)
 ![node](https://img.shields.io/badge/node-v10.16.3-green?style=flat-square)
+![node](https://img.shields.io/badge/mongoDB-v5.12.5-green?style=flat-square)
 ![goormIDE](https://img.shields.io/badge/goormIDE-blue?style=flat-square)
 ![kakaowork](https://img.shields.io/badge/kakaoWork-yellow?style=flat-square)
 <br/><br/>
@@ -37,5 +38,6 @@
 |2021.04.20|프로젝트 주제 fix 및 역할분담|시나리오, 개발파트 분담|
 |2021.04.21|2차 기획회의|랭킹 서버구현 및 채팅 ui 결정|
 |2021.04.25|시나리오 피드백|완성된 시나리오, 문제 피드백 진행|
-|2021.04.26|챗봇 구조 완성 및 피드백 |랭킹 서버 테스팅 및 문제점 보완|
+|2021.04.26|챗봇 구조 완성 및 피드백|랭킹 서버 테스팅 및 문제점 보완|
+|2021.04.28|Bugfix 및 힌트,정답 정보 구분|ux 설계 수정|
 
