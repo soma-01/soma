@@ -73,6 +73,8 @@ router.post("/callback", async (req, res, next) => {
 		   text: "소마인을 위한 특별한 힌트!!",
 		   blocks: hints[hintBlock+""],
 	   })
+		res.json({ result: true });
+		return;
 	}
 	
 	await mongoose.userEnroll(react_user_id, actions).then((user) => {
