@@ -4,13 +4,12 @@ const questions = require("./questions");
 const hints = require("./hints");
 const modals = require("./modals");
 const mongoose = require("./database");
-const moment = require('moment');
+const moment = require("moment");
+// 정답 배열
+const answers = require("./answers")["answers"];
 
 // 챕터 변수
 let current_chapter = 0;
-// 정답 배열
-const answers = ["start", "sunday", "bcd", "nashot", "wing", "cowork", "3", "dream", "soma", "finish"];
-// 2번 정답 wednesday도 추가해야 함
 
 mongoose.databaseInit();
 
@@ -54,7 +53,7 @@ router.post("/request", async (req, res, next) => {
       break;
     default:
       return res.json({
-        view: modals.chapter2_modals,
+        view: modals.other_chapter_modals,
       });
   }
 
@@ -62,23 +61,35 @@ router.post("/request", async (req, res, next) => {
 });
 
 router.post("/callback", async (req, res, next) => {
-  const { message, react_user_id, actions, action_time, value, action_type, action_name } = req.body;
+  const {
+    message,
+    react_user_id,
+    actions,
+    action_time,
+    value,
+    action_type,
+    action_name,
+  } = req.body;
+
+  if (current_chapter === 0) {
+    actions.answer = "start";
+  }
   // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
-	if(action_name == 'hint') {
-		hintBlock = value + "_blocks";
-		console.log(hintBlock);
-	   await libKakaoWork.sendMessage({
-		   conversationId: message.conversation_id,
-		   text: "소마인을 위한 특별한 힌트!!",
-		   blocks: hints[hintBlock+""],
-	   })
-		res.json({ result: true });
-		return;
-	}
-	
-	await mongoose.userEnroll(react_user_id, actions).then((user) => {
-    console.log("name: ", user.name, "solved: ",user.solved);
+  if (action_name == "hint") {
+    hintBlock = value + "_blocks";
+    console.log(hintBlock);
+    await libKakaoWork.sendMessage({
+      conversationId: message.conversation_id,
+      text: "소마인을 위한 특별한 힌트!!",
+      blocks: hints[hintBlock + ""],
+    });
+    res.json({ result: true });
+    return;
+  }
+
+  await mongoose.userEnroll(react_user_id, actions).then((user) => {
+    console.log("name: ", user.name, "solved: ", user.solved);
     current_chapter = user.solved;
 
     user.solved === answers.length ? (flag = 1) : 0;
@@ -88,12 +99,21 @@ router.post("/callback", async (req, res, next) => {
     flag === 1 ? 0 : user.try++;
 
     //정답이 맞으면 current_chapter 증가 flag 없으면 새로고침에 answer항목 없어서 에러남
-	if(current_chapter===1 && actions.answer in answers[current_chapter]){
-	  user.solved++;
-      current_chapter++;
-	}
-    else if (
+
+    // 2번 문제 답 2개 부분
+    if (
       flag === 0 &&
+      current_chapter === 1 &&
+      answers[current_chapter].includes(actions.answer) &&
+      current_chapter < answers.length
+    ) {
+      user.solved++;
+      current_chapter++;
+    }
+    // 2번 문제 제외한 기타 문제
+    if (
+      flag === 0 &&
+      current_chapter !== 1 &&
       actions.answer === answers[current_chapter] &&
       current_chapter < answers.length
     ) {
@@ -103,11 +123,11 @@ router.post("/callback", async (req, res, next) => {
     // try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
     if (current_chapter == answers.length && flag === 0) {
       var curr = new Date();
-	  var utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
-	  var kr_curr = new Date(utc + (9*60*60*1000));
-		// var temp = moment(kr_curr).format("MM/DD HH:MM:ss");
+      var utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+      var kr_curr = new Date(utc + 9 * 60 * 60 * 1000);
+      // var temp = moment(kr_curr).format("MM/DD HH:MM:ss");
       user.date = kr_curr;
-		console.log(`new finished user: ${user.name} try: ${user.try}`);
+      console.log(`new finished user: ${user.name} try: ${user.try}`);
       flag = 1;
     }
     // try, solved 저장
@@ -130,35 +150,56 @@ router.post("/callback", async (req, res, next) => {
           async function (err, docs) {
             // try 숫자 오름차순으로 정렬 후 (두 번째 정렬 조건으로 문제를 푼 date)
             docs.sort((a, b) => {
-              return a.try < b.try ? -1 : a.try > b.try ? 1 : a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+              return a.try < b.try
+                ? -1
+                : a.try > b.try
+                ? 1
+                : a.date < b.date
+                ? -1
+                : a.date > b.date
+                ? 1
+                : 0;
             });
             // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
-			function makeName(name){
-				var nameStr = "";
-				if (name.length<=7){
-					for (var i=0;i<name.length;i++) nameStr += name[i];
-					for (i=0;i<10-name.length;i++) nameStr += "  ";
-				} else{
-					nameStr = name.slice(0,10);
-				}
-				console.log(nameStr);
-				return nameStr;
-			}
-			var j = 1;
-			console.log(user.date);
+            function makeName(name) {
+              var nameStr = "";
+              if (name.length <= 7) {
+                for (var i = 0; i < name.length; i++) nameStr += name[i];
+                for (i = 0; i < 10 - name.length; i++) nameStr += "  ";
+              } else {
+                nameStr = name.slice(0, 10);
+              }
+              console.log(nameStr);
+              return nameStr;
+            }
+            var j = 1;
+            console.log(user.date);
             var ranking = docs.reduce(
-              (a, b) => a + "\n" + `${j++}위  ${makeName(b.name)}  ${b.try}   ${moment(b.date).format("MM/DD HH:MM")}`,
+              (a, b) =>
+                a +
+                "\n" +
+                `${j++}위  ${makeName(b.name)}  ${b.try}   ${moment(
+                  b.date
+                ).format("MM/DD HH:MM")}`,
               "*이름*                        *try*      *완료 시각*      \n"
             );
-			var myRanking=await mongoose.userModel.find({$and : [{solved: 10},{try : { $lte : user.try }},
-																 {date :{ $lt :new Date(`${user.date}`)}}]}).count();
-			myRanking++
-			
+
+            var myRanking = await mongoose.userModel
+              .find({
+                $and: [
+                  { solved: 7 },
+                  { try: { $lte: user.try } },
+                  { date: { $lt: new Date(`${user.date}`) } },
+                ],
+              })
+              .count();
+            myRanking++;
+
             ranking_blocks = questions["ranking_blocks"];
             ranking_blocks[1]["text"] = ranking;
-			ranking_blocks[3]["content"]["text"] = `${user.name}`;
-			ranking_blocks[4]["content"]["text"] = `${user.try}`;
-			ranking_blocks[5]["content"]["text"] = `${myRanking}위`;
+            ranking_blocks[3]["content"]["text"] = `${user.name}`;
+            ranking_blocks[4]["content"]["text"] = `${user.try}`;
+            ranking_blocks[5]["content"]["text"] = `${myRanking}위`;
             await libKakaoWork.sendMessage({
               conversationId: message.conversation_id,
               text: "Ranking",
@@ -167,7 +208,6 @@ router.post("/callback", async (req, res, next) => {
           }
         );
         // 오류가 나서 일단 주석 처리, res.json은 하나만 있어야 함.
-        
       }
     });
   });

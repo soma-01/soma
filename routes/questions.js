@@ -39,6 +39,10 @@ const chapter1_blocks = {
       "",
       "정답은 a-z | 0-9로 구성하였습니다.",
       "",
+      "*정답 입력*은 *정답* 버튼을 클릭 후 입력해주시면 됩니다.",
+      "",
+      "*주의*: *힌트*나 *정답보기*를 많이 보실시에는 랭킹 산정에 *지장*이 갈 수 있습니다.",
+      "",
       "자 *시작*해 볼까요?",
       "",
     ],
@@ -96,25 +100,25 @@ const chapter2_blocks = {
     markdown: true,
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint2",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter2",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint2",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter2",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter2_blocks = appendTextFromObject(chapter2_blocks);
 
@@ -153,25 +157,25 @@ const chapter3_blocks = {
       "https://docs.google.com/uc?export=download&id=1XSShn340prDAvues7Qdy6ZwGAOzQG5-p",
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint3",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter3",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint3",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter3",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter3_blocks = appendTextFromObject(chapter3_blocks);
 
@@ -237,25 +241,25 @@ const chapter4_blocks = {
     markdown: true,
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint4",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter4",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint4",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter4",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter4_blocks = appendTextFromObject(chapter4_blocks);
 
@@ -307,25 +311,25 @@ const chapter5_blocks = {
     markdown: true,
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint5",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter5",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint5",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter5",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter5_blocks = appendTextFromObject(chapter5_blocks);
 
@@ -381,25 +385,25 @@ const chapter6_blocks = {
       "https://docs.google.com/uc?export=download&id=18qkv2dGJnLFz32KRClnLpHayq1b7dlz3",
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint6",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter6",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint6",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter6",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter6_blocks = appendTextFromObject(chapter6_blocks);
 
@@ -443,25 +447,25 @@ const chapter7_blocks = {
     markdown: true,
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint7",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter7",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint7",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter7",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter7_blocks = appendTextFromObject(chapter7_blocks);
 
@@ -487,7 +491,17 @@ const chapter8_blocks = {
       "",
       "이전에 봤던 디지털 잠금장치에 도착했다.",
       "",
-      "START = D, ↙↙3,  ↗↗2,   ←1,  ↘1",
+    ],
+    markdown: true,
+  },
+  image: {
+    type: "image_link",
+    url:
+      "https://docs.google.com/uc?export=download&id=1ywklb3SSv2PTDs0MFB7QDTbZInvBaQb8",
+  },
+  text2: {
+    type: "text",
+    textArray: [
       "",
       "내가 찾은 힌트는 이게 전부다. 이제 잘 조합하는 수 밖에 없을 것 같다.",
       "",
@@ -499,25 +513,25 @@ const chapter8_blocks = {
     markdown: true,
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint8",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter8",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint8",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter8",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter8_blocks = appendTextFromObject(chapter8_blocks);
 
@@ -553,34 +567,39 @@ const chapter9_blocks = {
       "",
       "“으아아아아아아아아아아아아아아아아아!!!”",
       "",
-      "(*소마야…  소마야…!*)",
+      "(*소마*야…  *소마*야…!)",
       "",
-      // "어디선가 나를 부르는 소리가 들린다. 나는 허무하게 죽어버린 것일까?",
-      // "",
     ],
     markdown: true,
   },
-	active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint9",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter9",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+  text2: {
+    type: "text",
+    textArray: [
+      "어디선가 나를 부르는 소리가 들린다. 나는 허무하게 죽어버린 것일까?",
+      "",
+    ],
+    markdown: true,
+  },
+  active: {
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint9",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter9",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter9_blocks = appendTextFromObject(chapter9_blocks);
 
@@ -620,29 +639,31 @@ const chapter10_blocks = {
       "",
       "“어?...”",
       "",
+      "*ANSWER : FINISH*",
+      "",
     ],
     markdown: true,
   },
   active: {
-	  "type": "action",
-	  "elements": [
-		  {
-			  "type": "button",
-			  "action_type": "submit_action",
-			  "action_name": "hint",
-			  "value": "hint10",
-			  "text": "힌트",  
-			  "style": "primary",
-		  },
-		  {
-			  "type": "button",
-			  "action_type" : "call_modal",
-			  "value": "chapter10",
-			  "text": "정답",
-			  "style": "danger",
-		  },
-	  ],
-	},
+    type: "action",
+    elements: [
+      {
+        type: "button",
+        action_type: "submit_action",
+        action_name: "hint",
+        value: "hint10",
+        text: "힌트",
+        style: "primary",
+      },
+      {
+        type: "button",
+        action_type: "call_modal",
+        value: "chapter10",
+        text: "정답",
+        style: "danger",
+      },
+    ],
+  },
 };
 exports.chapter10_blocks = appendTextFromObject(chapter10_blocks);
 
@@ -659,38 +680,38 @@ const ranking_blocks = {
     markdown: true,
   },
   divider: {
-      "type": "divider"
+    type: "divider",
   },
   userText: {
-      type: "description",
-      term: "유저",
-      content: {
-        type: "text",
-        text: "",
-        markdown: false
-      },
-      accent: true
+    type: "description",
+    term: "유저",
+    content: {
+      type: "text",
+      text: "",
+      markdown: false,
     },
+    accent: true,
+  },
   tryText: {
-      type: "description",
-      term: "try",
-      content: {
-        type: "text",
-        text: "",
-        markdown: false
-      },
-      accent: true
+    type: "description",
+    term: "try",
+    content: {
+      type: "text",
+      text: "",
+      markdown: false,
     },
+    accent: true,
+  },
   rankText: {
-      type: "description",
-      term: "순위",
-      content: {
-        type: "text",
-        text: "",
-        markdown: false
-      },
-      accent: true
+    type: "description",
+    term: "순위",
+    content: {
+      type: "text",
+      text: "",
+      markdown: false,
     },
+    accent: true,
+  },
   button: {
     type: "button",
     action_type: "submit_action",
