@@ -7,9 +7,11 @@ const mongoose = require("./database");
 const moment = require("moment");
 // 정답 배열
 const answers = require("./answers")["answers"];
+const answersBlock = require("./answers");
 
 // 챕터 변수
 let current_chapter = 0;
+let readHintOrAnswer = 0;
 
 mongoose.databaseInit();
 
@@ -77,21 +79,33 @@ router.post("/callback", async (req, res, next) => {
   // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
   if (action_name == "hint") {
-    hintBlock = value + "_blocks";
-    console.log(hintBlock);
+    console.log(value + "_blocks");
     await libKakaoWork.sendMessage({
       conversationId: message.conversation_id,
-      text: "소마인을 위한 특별한 힌트!!",
-      blocks: hints[hintBlock + ""],
+      text: "힌트",
+      blocks: hints[value + "_blocks"],
     });
+	  readHintOrAnswer += 3;
     res.json({ result: true });
     return;
+  }
+	
+  if (action_name == "answer") {
+	  console.log(value);
+		await libKakaoWork.sendMessage({
+			conversationId: message.conversation_id,
+			text: "정답",
+			blocks: answersBlock[value + "_blocks"],
+		});
+		readHintOrAnswer += 10;
+		res.json({ result: true});
+		return;
   }
 
   await mongoose.userEnroll(react_user_id, actions).then((user) => {
     console.log("name: ", user.name, "solved: ", user.solved);
     current_chapter = user.solved;
-
+	  
     user.solved === answers.length ? (flag = 1) : 0;
     // 현재 풀고 있는 챕터일 경우에만 try 증가
     //if (actions.value === `Chapter {current_chapter}`)
@@ -130,6 +144,8 @@ router.post("/callback", async (req, res, next) => {
       console.log(`new finished user: ${user.name} try: ${user.try}`);
       flag = 1;
     }
+	user.try += readHintOrAnswer;
+	  readHintOrAnswer = 0;
     // try, solved 저장
     new Promise(function (resolve, reject) {
       user.save(function (err) {
