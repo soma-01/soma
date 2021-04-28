@@ -15,21 +15,10 @@ exports.chapter1_modals = {
       required: false,
       placeholder: "이름을 입력해주세요",
     },
-    {
-      type: "label",
-      text: "Answer",
-      markdown: true,
-    },
-    {
-      type: "input",
-      name: "answer",
-      required: false,
-      placeholder: "내용을 입력해주세요",
-    },
   ],
 };
 
-exports.chapter2_modals = {
+exports.other_chapter_modals = {
   title: "소마탈출 정답 입력하기",
   accept: "확인",
   decline: "취소",
