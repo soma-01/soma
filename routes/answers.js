@@ -36,7 +36,7 @@ const answer2_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*sunday 또는 wednesday*",
+			"*SUNDAY 또는 WEDNESDAY*",
 			"",
 		],
 		markdown: true,
