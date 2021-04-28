@@ -88,7 +88,11 @@ router.post("/callback", async (req, res, next) => {
     flag === 1 ? 0 : user.try++;
 
     //정답이 맞으면 current_chapter 증가 flag 없으면 새로고침에 answer항목 없어서 에러남
-    if (
+	if(current_chapter===1 && actions.answer in answers[current_chapter]){
+	  user.solved++;
+      current_chapter++;
+	}
+    else if (
       flag === 0 &&
       actions.answer === answers[current_chapter] &&
       current_chapter < answers.length
@@ -146,7 +150,7 @@ router.post("/callback", async (req, res, next) => {
               (a, b) => a + "\n" + `${j++}위  ${makeName(b.name)}  ${b.try}   ${moment(b.date).format("MM/DD HH:MM")}`,
               "*이름*                        *try*      *완료 시각*      \n"
             );
-			var myRanking=await mongoose.userModel.find({$and : [{solved: 7},{try : { $lte : user.try }},
+			var myRanking=await mongoose.userModel.find({$and : [{solved: 10},{try : { $lte : user.try }},
 																 {date :{ $lt :new Date(`${user.date}`)}}]}).count();
 			myRanking++
 			

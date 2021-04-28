@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 let User = new mongoose.Schema({
   id: { type: String, require: true, unique: true},
-  name: { type: String, required: true },
+  name: { type: String},
   date: { type: Date, required: true },
   solved: { type: Number, required: true },
   try: { type: Number, required: true },
@@ -31,6 +31,9 @@ async function userEnroll(react_user_id,actions){
 		let user;
 		userModel.find({ id: react_user_id }, function (err, docs) {
 		if (docs.length === 0) {
+			if(actions.name===null){
+				actions.name='user'
+			}
 		  var newUser = new userModel({
 			id: react_user_id,
 			name: actions.name,
