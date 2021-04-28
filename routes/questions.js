@@ -553,7 +553,7 @@ const chapter9_blocks = {
       "",
       "“으아아아아아아아아아아아아아아아아아!!!”",
       "",
-      "(소마야…  소마야…!)",
+      "(*소마야…  소마야…!*)",
       "",
       // "어디선가 나를 부르는 소리가 들린다. 나는 허무하게 죽어버린 것일까?",
       // "",
@@ -572,6 +572,7 @@ const chapter9_blocks = {
 			  "style": "primary",
 		  },
 		  {
+			  
 			  "type": "button",
 			  "action_type" : "call_modal",
 			  "value": "chapter9",
