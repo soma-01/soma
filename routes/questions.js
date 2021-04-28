@@ -465,6 +465,186 @@ const chapter7_blocks = {
 };
 exports.chapter7_blocks = appendTextFromObject(chapter7_blocks);
 
+const chapter8_blocks = {
+  header: {
+    type: "header",
+    text: "#8 엘리베이터",
+    style: "blue",
+  },
+  text: {
+    type: "text",
+    textArray: [
+      "",
+      "↘1 ",
+      "",
+      "“어디서 많이 본 배열인가 했더니 가장 긴 무한 루프의 길이를 구하는 코딩테스트 문제였구나!”",
+      "",
+      "장비에 연결된 키보드에 3을 입력하고 엔터를 누르니, 웅장한 데스크탑의 소리와 함께 깜깜했던 7층 건물의 불이 환하게 비추어 졌다. 전설로 내려오던 문제들을 모두 풀었다는 것을 의미하는 것 같았다.",
+      "",
+      "불이 켜짐과 동시에 뒷편에 놓아진 프린터가 작동하기 시작하였고, 불과 몇 분후 ↘1  가 적혀있는 종이가 출력되었다.",
+      "",
+      "“이제 엘리베이터 앞으로 가자”",
+      "",
+      "이전에 봤던 디지털 잠금장치에 도착했다.",
+      "",
+      "START = D, ↙↙3,  ↗↗2,   ←1,  ↘1",
+      "",
+      "내가 찾은 힌트는 이게 전부다. 이제 잘 조합하는 수 밖에 없을 것 같다.",
+      "",
+      "하지만 입력장치에는 숫자뿐인데 대체 어떻게 하라는거지….??",
+      "",
+      "암호를 분석해, 엘리베이터를 작동시킬 수 있는 패스워드를 입력하자.",
+      "",
+    ],
+    markdown: true,
+  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint8",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter8",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
+};
+exports.chapter8_blocks = appendTextFromObject(chapter8_blocks);
+
+const chapter9_blocks = {
+  header: {
+    type: "header",
+    text: "#9 탈출?",
+    style: "blue",
+  },
+  text: {
+    type: "text",
+    textArray: [
+      "",
+      "D.. R..E..A..M….",
+      "",
+      "철컹! 휘이이이이이잉!!!!",
+      "",
+      "엘리베이터가 가동하는 소리가 들린다. 엄청난 굉음과 함께 갑자기 천장이 무너져 내리기 시작했다.",
+      "",
+      "건물이 무너져 내리는 공포감에 드디어 탈출할 수 있다는 기쁨을 누릴 틈이 없었다.",
+      "",
+      "나는 급하게 탑승해 1층을 눌렀다.",
+      "",
+      "어라? 1층이 눌리지 않는 엘리베이터. 점점 빠른 속도로 무너져 내려가는 건물. ",
+      "",
+      "나는 엘리베이터 문이 닫힐때 까지 1층을 눌러보지만 꼼짝도 하지 않는다. 다른 버튼도 전혀 동작하지 않는다.",
+      "",
+      "“왜이래 이거!! 아 제발…..!!! 누가 나좀 도와줘..!!”",
+      "",
+      "다시 나가보려고 엘리베이터 문을 열어보지만 문도 더이상 움직이지 않는다. 꼼짝없이 갇혔다.",
+      "",
+      "한참을 고민하고 있을때 갑자기 엘리베이터가 혼자 내려가기 시작하더니 가속도가 붙어서 마치 추락할 것 같은 공포심을 유발했다.",
+      "",
+      "“으아아아아아아아아아아아아아아아아아!!!”",
+      "",
+      "(소마야…  소마야…!)",
+      "",
+      // "어디선가 나를 부르는 소리가 들린다. 나는 허무하게 죽어버린 것일까?",
+      // "",
+    ],
+    markdown: true,
+  },
+	active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint9",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter9",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
+};
+exports.chapter9_blocks = appendTextFromObject(chapter9_blocks);
+
+const chapter10_blocks = {
+  header: {
+    type: "header",
+    text: "#10 Finish",
+    style: "blue",
+  },
+  text: {
+    type: "text",
+    textArray: [
+      "",
+      "“소마야!!!!!!!!”",
+      "",
+      "“악!!!!”",
+      "",
+      "소리를 지르며 벌떡 일어난 나는 주변을 빠르게 둘러보았다.",
+      "",
+      "어라?.. 여기는… 6층 12회의실?...",
+      "",
+      "“너 금새 꿈꿨어? 멘토링 받다가 조는것도 모자라, 꿈까지 꾸니?”",
+      "",
+      "얼굴이 화끈하게 달아올랐다.",
+      "",
+      "“죄…. 죄송합니다!!!!!”",
+      "",
+      "...",
+      "",
+      "밤 10시, 멘토링이 끝나고, 방명록 작성을 위해 다같이 7층 프론트데스크로  올라갔다.",
+      "",
+      "“온김에 카드키를 받아야 겠다.”",
+      "",
+      "카드키를 수령하기 위해 앞에 계신 경비아저씨께 내 이름을 말하며 카드키를 아직 수령받지 못하고 말하였다.",
+      "",
+      "경비아저씨께서는 “카드키”라고 적혀있는 자물쇠가 걸린 서랍에서, BCD를 입력하고 카드키를 꺼내고 있었다.",
+      "",
+      "“어?...”",
+      "",
+    ],
+    markdown: true,
+  },
+  active: {
+	  "type": "action",
+	  "elements": [
+		  {
+			  "type": "button",
+			  "action_type": "submit_action",
+			  "action_name": "hint",
+			  "value": "hint10",
+			  "text": "힌트",  
+			  "style": "primary",
+		  },
+		  {
+			  "type": "button",
+			  "action_type" : "call_modal",
+			  "value": "chapter10",
+			  "text": "정답",
+			  "style": "danger",
+		  },
+	  ],
+	},
+};
+exports.chapter10_blocks = appendTextFromObject(chapter10_blocks);
+
 // rakning 페이지 blocks를 하나 더 생성
 const ranking_blocks = {
   header: {
