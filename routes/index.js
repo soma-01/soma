@@ -9,7 +9,7 @@ const moment = require('moment');
 // 챕터 변수
 let current_chapter = 0;
 // 정답 배열
-const answers = ["start", "sunday", "bcd", "nashot", "wing", "cowork", "3"];
+const answers = ["start", "sunday", "bcd", "nashot", "wing", "cowork", "3", "dream", "soma", "finish"];
 // 2번 정답 wednesday도 추가해야 함
 
 mongoose.databaseInit();
