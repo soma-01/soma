@@ -34,6 +34,14 @@ const appendTextFromObject = (obj) => {
       ],
       markdown: true,
     },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer2",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint2_blocks = appendTextFromObject(hint2_blocks);
   
@@ -48,6 +56,14 @@ const appendTextFromObject = (obj) => {
         url:
           "https://docs.google.com/uc?export=download&id=19FSQjOYKKheh8Ig-E__kvHsGPHRNY7Js",
       },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer3",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint3_blocks = appendTextFromObject(hint3_blocks);
   
@@ -66,6 +82,14 @@ const appendTextFromObject = (obj) => {
       ],
       markdown: true,
     },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer4",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint4_blocks = appendTextFromObject(hint4_blocks);
   
@@ -89,6 +113,14 @@ const appendTextFromObject = (obj) => {
         url:
           "https://docs.google.com/uc?export=download&id=1TXxEya-ViF5scBkBxnPQ0EllEa9qSIuz",
       },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer5",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint5_blocks = appendTextFromObject(hint5_blocks);
   
@@ -109,6 +141,14 @@ const appendTextFromObject = (obj) => {
       ],
       markdown: true,
     },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer6",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint6_blocks = appendTextFromObject(hint6_blocks);
   
@@ -129,6 +169,14 @@ const appendTextFromObject = (obj) => {
       ],
       markdown: true,
     },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer7",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint7_blocks = appendTextFromObject(hint7_blocks);
 
@@ -143,6 +191,14 @@ const appendTextFromObject = (obj) => {
         url:
           "https://docs.google.com/uc?export=download&id=1Iuhbdy8Xf9KW-gZX6Eu2vhdo5AdX7Y88",
       },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer8",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint8_blocks = appendTextFromObject(hint8_blocks);
 
@@ -161,6 +217,14 @@ const appendTextFromObject = (obj) => {
       ],
       markdown: true,
     },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer9",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint9_blocks = appendTextFromObject(hint9_blocks);
 
@@ -179,5 +243,13 @@ const hint10_blocks = {
       ],
       markdown: true,
     },
+	button: {
+		type: "button",
+		action_type: "submit_action",
+		action_name: "answer",
+		value: "answer10",
+		text: "정답 보기",
+		style: "default",
+	}
   };
   exports.hint10_blocks = appendTextFromObject(hint10_blocks);
