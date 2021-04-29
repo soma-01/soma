@@ -134,7 +134,7 @@ router.post("/callback", async (req, res, next) => {
 			if (
 			  flag === 0 &&
 			  current_chapter !== 1 &&
-			  actions.answer === answers[current_chapter] &&
+			  actions.answer == answers[current_chapter] &&
 			  current_chapter < answers.length
 			) {
 			  user.solved++;
