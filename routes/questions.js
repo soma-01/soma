@@ -201,7 +201,7 @@ const chapter4_blocks = {
   image: {
     type: "image_link",
     url:
-      "https://docs.google.com/uc?export=download&id=1kRVUOgTYza6ne_4NW_aH3-GQ5ENNpI-0",
+      "https://drive.google.com/uc?id=18MOyhM-lrBhk-vHBph4OW1uWLh8v1Cjl",
   },
   text2: {
     type: "text",
