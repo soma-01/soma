@@ -73,14 +73,10 @@ const appendTextFromObject = (obj) => {
       text: "#4 힌트",
       style: "blue",
     },
-    text: {
-      type: "text",
-      textArray: [
-        "",
-        "11기 *인증* 프로젝트",
-        ""
-      ],
-      markdown: true,
+	image: {
+    type: "image_link",
+    url:
+      "https://drive.google.com/uc?id=1J2koynUcmz0KZJB2_Fk7QgzyjejrSuTI",
     },
 	button: {
 		type: "button",

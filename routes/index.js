@@ -78,7 +78,6 @@ router.post("/callback", async (req, res, next) => {
     console.log("name: ", user.name, "solved: ", user.solved);
     current_chapter = user.solved;
 	  
-	  
 	// 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
   var readHintOrAnswer = 0;
@@ -207,25 +206,27 @@ router.post("/callback", async (req, res, next) => {
                 ).format("MM/DD HH:MM")}`,
               "*이름*                        *try*      *완료 시각*      \n"
             );
-			  
+			var myRanking=0;
+			var rankingFlag=0;
 			var rankingList = JSON.parse(JSON.stringify(questions.rankingHeader));
 			for (let i=0;i<10 && i<docs.length;i++){
+				if(docs[i].name===user.name){
+					myRanking=i+1;
+					rankingFlag=1;
+				}
 				var tempList =  questions.ranking_blocks;
 				tempList.content.text = `${docs[i].try}회   ${moment(docs[i].date).format("MM/DD HH:MM")}\n*${docs[i].name}*`;
 				tempList.image.url = questions.rankingImages[i];
 				rankingList.push(JSON.parse(JSON.stringify(tempList)));
 			}
-			  
-			var myRanking = await mongoose.userModel
-              .find({
-                $and: [
-                  { solved: 10 },
-                  { try: { $lte: user.try } },
-                  { date: { $lt: new Date(`${user.date}`) } },
-                ],
-              })
-              .count();
-            myRanking++;
+			if(rankingFlag===0){
+				for(let i=10;i<docs.length;i++){
+				if(docs[i].name===user.name){
+					myRanking=i+1;
+					break;
+				}
+			  }
+			}
 			var myList =  questions.ranking_blocks;
 			myList.content.text = `*${myRanking}등!!*   ${moment(user.date).format("MM/DD HH:MM")}\n*${user.name}*`;
 			myList.image.url = questions.myRanking.accessory.url;

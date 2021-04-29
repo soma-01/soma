@@ -36,7 +36,7 @@ const answer2_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*SUNDAY 또는 WEDNESDAY*",
+			"*sunday 또는 wednesday*",
 			"",
 		],
 		markdown: true,
@@ -54,7 +54,7 @@ const answer3_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*BCD*",
+			"*bcd*",
 			"",
 		],
 		markdown: true,
@@ -72,7 +72,7 @@ const answer4_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*NASHOT*",
+			"*nashot*",
 			"",
 		],
 		markdown: true,
@@ -90,7 +90,7 @@ const answer5_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*WING*",
+			"*wing*",
 			"",
 		],
 		markdown: true,
@@ -108,7 +108,7 @@ const answer6_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*COWORK*",
+			"*cowork*",
 			"",
 		],
 		markdown: true,
@@ -144,7 +144,7 @@ const answer8_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*DREAM*",
+			"*dream*",
 			"",
 		],
 		markdown: true,
@@ -162,7 +162,7 @@ const answer9_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*SOMA*",
+			"*soma*",
 			"",
 		],
 		markdown: true,
@@ -180,7 +180,7 @@ const answer10_blocks = {
 		type: "text",
 		textArray: [
 			"",
-			"*FINISH*",
+			"*finish*",
 			"",
 		],
 		markdown: true,
