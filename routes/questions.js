@@ -25,8 +25,7 @@ const chapter1_blocks = {
   },
   image: {
     type: "image_link",
-    url:
-      "https://drive.google.com/uc?id=1ff8GJ7-bgs9Pv0j6OzVLBe0Dq9cnkxRx",
+    url: "https://drive.google.com/uc?id=1ff8GJ7-bgs9Pv0j6OzVLBe0Dq9cnkxRx",
   },
   text: {
     type: "text",
@@ -46,7 +45,7 @@ const chapter1_blocks = {
       "",
       "*정답 입력*은 *정답* 버튼을 클릭 후 입력해주시면 됩니다.",
       "",
-	  "정답을 제출 하였을 때 같은 문제가 다시 나오면 틀린 정답이고 다음 챕터가 나올 경우에 옳은 정답입니다!",
+      "정답을 제출 하였을 때 같은 문제가 다시 나오면 틀린 정답이고 다음 챕터가 나올 경우에 옳은 정답입니다!",
       "",
       "*주의*: *힌트*나 *정답보기*를 많이 보실시에는 랭킹 산정에 *지장*이 갈 수 있습니다.",
       "",
@@ -207,8 +206,7 @@ const chapter4_blocks = {
   },
   image: {
     type: "image_link",
-    url:
-      "https://drive.google.com/uc?id=18MOyhM-lrBhk-vHBph4OW1uWLh8v1Cjl",
+    url: "https://drive.google.com/uc?id=18MOyhM-lrBhk-vHBph4OW1uWLh8v1Cjl",
   },
   text2: {
     type: "text",
@@ -503,6 +501,10 @@ const chapter8_blocks = {
   },
   image: {
     type: "image_link",
+    url: "https://drive.google.com/uc?id=18MOyhM-lrBhk-vHBph4OW1uWLh8v1Cjl",
+  },
+  image2: {
+    type: "image_link",
     url:
       "https://docs.google.com/uc?export=download&id=1ywklb3SSv2PTDs0MFB7QDTbZInvBaQb8",
   },
@@ -676,62 +678,67 @@ exports.chapter10_blocks = appendTextFromObject(chapter10_blocks);
 
 // ranking 페이지 blocks를 하나 더 생성
 const ranking_blocks = {
-      type: "context",
-      content: {
-        type: "text",
-        text: "",
-        markdown: true
-      },
-      image: {
-        type: "image_link",
-        url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/doc@3x.png"
-      }
-    };
+  type: "context",
+  content: {
+    type: "text",
+    text: "",
+    markdown: true,
+  },
+  image: {
+    type: "image_link",
+    url:
+      "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/doc@3x.png",
+  },
+};
 exports.ranking_blocks = ranking_blocks; //= [...Object.values(ranking_blocks)];
 
-const rankingImages = ['https://drive.google.com/uc?export=download&id=1L8Tax449QnT1XQyLSBMlA5GyJIS6Cbff',
-                'https://drive.google.com/uc?export=download&id=1y7SRBDfwtXGnFJSJr6zzOPR3CdRoRElv',
-                'https://drive.google.com/uc?export=download&id=15IenfU1vm0a6yJSlDdMbnHn0v22AgN9n',
-                'https://drive.google.com/uc?export=download&id=1cdkFlvJvZxLfrYbjV12EpJhpEb-3IJ1o',
-                'https://drive.google.com/uc?export=download&id=1Ud-eKIwv3EFBo_Z3Y3oSbcLEBCekavIJ',
-                'https://drive.google.com/uc?export=download&id=1wcuwA1mglXGnG2cMQrYDHQvIxadtS8WB',
-                'https://drive.google.com/uc?export=download&id=1ve9r25rrJ9bNLI_suOeG-Kf-5jvpQSEq',
-                'https://drive.google.com/uc?export=download&id=1DYHqB0rWWR24j1pHAoBlAIF5hqajzM6J',
-                'https://drive.google.com/uc?export=download&id=17lUcLjLNo_nSCmiSFpzAg7TCYgCyJR9m',
-                'https://drive.google.com/uc?export=download&id=1Dqj_ViqrfiDFJxegTX8JVmCJAXy6eklM']
+const rankingImages = [
+  "https://drive.google.com/uc?export=download&id=1L8Tax449QnT1XQyLSBMlA5GyJIS6Cbff",
+  "https://drive.google.com/uc?export=download&id=1y7SRBDfwtXGnFJSJr6zzOPR3CdRoRElv",
+  "https://drive.google.com/uc?export=download&id=15IenfU1vm0a6yJSlDdMbnHn0v22AgN9n",
+  "https://drive.google.com/uc?export=download&id=1cdkFlvJvZxLfrYbjV12EpJhpEb-3IJ1o",
+  "https://drive.google.com/uc?export=download&id=1Ud-eKIwv3EFBo_Z3Y3oSbcLEBCekavIJ",
+  "https://drive.google.com/uc?export=download&id=1wcuwA1mglXGnG2cMQrYDHQvIxadtS8WB",
+  "https://drive.google.com/uc?export=download&id=1ve9r25rrJ9bNLI_suOeG-Kf-5jvpQSEq",
+  "https://drive.google.com/uc?export=download&id=1DYHqB0rWWR24j1pHAoBlAIF5hqajzM6J",
+  "https://drive.google.com/uc?export=download&id=17lUcLjLNo_nSCmiSFpzAg7TCYgCyJR9m",
+  "https://drive.google.com/uc?export=download&id=1Dqj_ViqrfiDFJxegTX8JVmCJAXy6eklM",
+];
 exports.rankingImages = rankingImages;
 
-exports.rankingHeader = [{
-							type: "header",
-							text: "Ranking",
-							style: "blue",
-						  },
-						 {
-						  type: "text",
-						  text: "   *등수*      *try*    *완료시각*",
-						  markdown: true
-						}];
+exports.rankingHeader = [
+  {
+    type: "header",
+    text: "Ranking",
+    style: "blue",
+  },
+  {
+    type: "text",
+    text: "   *등수*      *try*    *완료시각*",
+    markdown: true,
+  },
+];
 
 exports.refreshButton = {
-								type: "button",
-								action_type: "submit_action",
-								action_name: "refresh",
-								value: "ranking",
-								text: "새로고침",
-								style: "default",
-							  };
+  type: "button",
+  action_type: "submit_action",
+  action_name: "refresh",
+  value: "ranking",
+  text: "새로고침",
+  style: "default",
+};
 
 const myRanking = {
-      type: "section",
-      content: {
-        type: "text",
-        text: "카카오엔터프라이즈의\n업무용메신저\n*카카오워크*",
-        markdown: true
-      },
-      accessory: {
-        type: "image_link",
-        url: "https://drive.google.com/uc?export=download&id=1q9KOvEJDiDNlPT4oJvc63DBEtElbsCJt"
-      }
-    }
+  type: "section",
+  content: {
+    type: "text",
+    text: "카카오엔터프라이즈의\n업무용메신저\n*카카오워크*",
+    markdown: true,
+  },
+  accessory: {
+    type: "image_link",
+    url:
+      "https://drive.google.com/uc?export=download&id=1q9KOvEJDiDNlPT4oJvc63DBEtElbsCJt",
+  },
+};
 exports.myRanking = myRanking;
-
