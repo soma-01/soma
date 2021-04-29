@@ -667,7 +667,7 @@ const chapter10_blocks = {
 };
 exports.chapter10_blocks = appendTextFromObject(chapter10_blocks);
 
-// rakning 페이지 blocks를 하나 더 생성
+// ranking 페이지 blocks를 하나 더 생성
 const ranking_blocks = {
       type: "context",
       content: {
@@ -683,15 +683,15 @@ const ranking_blocks = {
 exports.ranking_blocks = ranking_blocks; //= [...Object.values(ranking_blocks)];
 
 const rankingImages = ['https://drive.google.com/uc?export=download&id=1L8Tax449QnT1XQyLSBMlA5GyJIS6Cbff',
-					 'https://drive.google.com/uc?export=download&id=1y7SRBDfwtXGnFJSJr6zzOPR3CdRoRElv',
-					 'https://drive.google.com/file/d/15IenfU1vm0a6yJSlDdMbnHn0v22AgN9n/view?usp=sharing',
-					 'https://drive.google.com/file/d/1cdkFlvJvZxLfrYbjV12EpJhpEb-3IJ1o/view?usp=sharing',
-					 'https://drive.google.com/file/d/1Ud-eKIwv3EFBo_Z3Y3oSbcLEBCekavIJ/view?usp=sharing',
-					 'https://drive.google.com/file/d/1wcuwA1mglXGnG2cMQrYDHQvIxadtS8WB/view?usp=sharing',
-					 'https://drive.google.com/file/d/1ve9r25rrJ9bNLI_suOeG-Kf-5jvpQSEq/view?usp=sharing',
-					 'https://drive.google.com/uc?export=download&id=1DYHqB0rWWR24j1pHAoBlAIF5hqajzM6J',
-					 'https://drive.google.com/uc?export=download&id=17lUcLjLNo_nSCmiSFpzAg7TCYgCyJR9m',
-					 'https://drive.google.com/uc?export=download&id=1Dqj_ViqrfiDFJxegTX8JVmCJAXy6eklM']
+                'https://drive.google.com/uc?export=download&id=1y7SRBDfwtXGnFJSJr6zzOPR3CdRoRElv',
+                'https://drive.google.com/uc?export=download&id=15IenfU1vm0a6yJSlDdMbnHn0v22AgN9n',
+                'https://drive.google.com/uc?export=download&id=1cdkFlvJvZxLfrYbjV12EpJhpEb-3IJ1o',
+                'https://drive.google.com/uc?export=download&id=1Ud-eKIwv3EFBo_Z3Y3oSbcLEBCekavIJ',
+                'https://drive.google.com/uc?export=download&id=1wcuwA1mglXGnG2cMQrYDHQvIxadtS8WB',
+                'https://drive.google.com/uc?export=download&id=1ve9r25rrJ9bNLI_suOeG-Kf-5jvpQSEq',
+                'https://drive.google.com/uc?export=download&id=1DYHqB0rWWR24j1pHAoBlAIF5hqajzM6J',
+                'https://drive.google.com/uc?export=download&id=17lUcLjLNo_nSCmiSFpzAg7TCYgCyJR9m',
+                'https://drive.google.com/uc?export=download&id=1Dqj_ViqrfiDFJxegTX8JVmCJAXy6eklM']
 exports.rankingImages = rankingImages;
 
 exports.rankingHeader = [{

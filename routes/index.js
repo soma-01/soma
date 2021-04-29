@@ -202,31 +202,36 @@ router.post("/callback", async (req, res, next) => {
               "*이름*                        *try*      *완료 시각*      \n"
             );
 			  
-			var rankingList = questions.rankingHeader;
+			var rankingList = JSON.parse(JSON.stringify(questions.rankingHeader));
 			for (let i=0;i<10 && i<docs.length;i++){
 				var tempList =  questions.ranking_blocks;
 				tempList.content.text = `${docs[i].try}회   ${moment(docs[i].date).format("MM/DD HH:MM")}\n*${docs[i].name}*`;
 				tempList.image.url = questions.rankingImages[i];
 				rankingList.push(JSON.parse(JSON.stringify(tempList)));
 			}
-			rankingList.push(questions.refreshButton);
-
-            var myRanking = await mongoose.userModel
+			  
+			var myRanking = await mongoose.userModel
               .find({
                 $and: [
-                  { solved: 7 },
+                  { solved: 10 },
                   { try: { $lte: user.try } },
                   { date: { $lt: new Date(`${user.date}`) } },
                 ],
               })
               .count();
             myRanking++;
+			var myList =  questions.ranking_blocks;
+			myList.content.text = `*${myRanking}등!!*   ${moment(user.date).format("MM/DD HH:MM")}\n*${user.name}*`;
+			myList.image.url = questions.myRanking.accessory.url;
+            rankingList.push(JSON.parse(JSON.stringify(myList)));
 			  
-            await libKakaoWork.sendMessage({
+			rankingList.push(questions.refreshButton);
+			await libKakaoWork.sendMessage({
               conversationId: message.conversation_id,
               text: "Ranking",
               blocks: rankingList,
             });
+			rankingList = questions.rankingHeader;
           }
         );
         // 오류가 나서 일단 주석 처리, res.json은 하나만 있어야 함.
