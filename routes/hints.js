@@ -73,10 +73,14 @@ const appendTextFromObject = (obj) => {
       text: "#4 힌트",
       style: "blue",
     },
-	image: {
-    type: "image_link",
-    url:
-      "https://drive.google.com/uc?id=1J2koynUcmz0KZJB2_Fk7QgzyjejrSuTI",
+    text: {
+      type: "text",
+      textArray: [
+        "",
+        "*11기 인증 프로젝트*",
+        "",
+      ],
+      markdown: true,
     },
 	button: {
 		type: "button",
@@ -95,19 +99,10 @@ const appendTextFromObject = (obj) => {
       text: "#5 힌트",
       style: "blue",
     },
-    text: {
-        type: "text",
-        textArray: [
-          "",
-          "*line*",
-          ""
-        ],
-        markdown: true,
-      },
     image: {
         type: "image_link",
         url:
-          "https://docs.google.com/uc?export=download&id=1TXxEya-ViF5scBkBxnPQ0EllEa9qSIuz",
+          "https://drive.google.com/uc?id=1yMvPpHlXS6GV40FsioW4bg2mCPCSGgsC",
       },
 	button: {
 		type: "button",
