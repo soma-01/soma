@@ -206,7 +206,7 @@ router.post("/callback", async (req, res, next) => {
 			  }
 			}
 			var myList =  questions.ranking_blocks;
-			myList.content.text = `*${myRanking}등!!*   ${moment(user.date).format("MM/DD HH:mm")}\n*${user.name}*`;
+			myList.content.text = `*${myRanking}등!!*\n${user.try}회   ${moment(user.date).format("MM/DD HH:mm")}\n*${user.name}*`;
 			myList.image.url = questions.myRanking.accessory.url;
             rankingList.push(JSON.parse(JSON.stringify(myList)));
 			  
