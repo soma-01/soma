@@ -184,29 +184,6 @@ router.post("/callback", async (req, res, next) => {
                 ? 1
                 : 0;
             });
-            // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
-            function makeName(name) {
-              var nameStr = "";
-              if (name.length <= 7) {
-                for (var i = 0; i < name.length; i++) nameStr += name[i];
-                for (i = 0; i < 10 - name.length; i++) nameStr += "  ";
-              } else {
-                nameStr = name.slice(0, 10);
-              }
-              console.log(nameStr);
-              return nameStr;
-            }
-            var j = 1;
-            console.log(user.date);
-            var ranking = docs.reduce(
-              (a, b) =>
-                a +
-                "\n" +
-                `${j++}위  ${makeName(b.name)}  ${b.try}   ${moment(
-                  b.date
-                ).format("MM/DD HH:MM")}`,
-              "*이름*                        *try*      *완료 시각*      \n"
-            );
 			var myRanking=0;
 			var rankingFlag=0;
 			var rankingList = JSON.parse(JSON.stringify(questions.rankingHeader));
@@ -216,7 +193,7 @@ router.post("/callback", async (req, res, next) => {
 					rankingFlag=1;
 				}
 				var tempList =  questions.ranking_blocks;
-				tempList.content.text = `${docs[i].try}회   ${moment(docs[i].date).format("MM/DD HH:MM")}\n*${docs[i].name}*`;
+				tempList.content.text = `${docs[i].try}회   ${moment(docs[i].date).format("MM/DD HH:mm")}\n*${docs[i].name}*`;
 				tempList.image.url = questions.rankingImages[i];
 				rankingList.push(JSON.parse(JSON.stringify(tempList)));
 			}
@@ -229,7 +206,7 @@ router.post("/callback", async (req, res, next) => {
 			  }
 			}
 			var myList =  questions.ranking_blocks;
-			myList.content.text = `*${myRanking}등!!*   ${moment(user.date).format("MM/DD HH:MM")}\n*${user.name}*`;
+			myList.content.text = `*${myRanking}등!!*   ${moment(user.date).format("MM/DD HH:mm")}\n*${user.name}*`;
 			myList.image.url = questions.myRanking.accessory.url;
             rankingList.push(JSON.parse(JSON.stringify(myList)));
 			  
