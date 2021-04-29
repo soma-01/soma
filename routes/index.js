@@ -11,7 +11,7 @@ const answersBlock = require("./answers");
 
 // 챕터 변수
 let current_chapter = 0;
-let readHintOrAnswer = 1;
+
 
 mongoose.databaseInit();
 
@@ -72,82 +72,88 @@ router.post("/callback", async (req, res, next) => {
     action_type,
     action_name,
   } = req.body;
-
-  // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
-  var flag = 0;
-  if (action_name == "hint") {
-    console.log(value + "_blocks");
-    await libKakaoWork.sendMessage({
-      conversationId: message.conversation_id,
-      text: "힌트",
-      blocks: hints[value + "_blocks"],
-    });
-	  readHintOrAnswer += 3;
-    res.json({ result: true });
-    return;
-  }
-	
-  if (action_name == "answer") {
-	  console.log(value);
-		await libKakaoWork.sendMessage({
-			conversationId: message.conversation_id,
-			text: "정답",
-			blocks: answersBlock[value + "_blocks"],
-		});
-		readHintOrAnswer += 10;
-		res.json({ result: true});
-		return;
-  }
   
 
-  await mongoose.userEnroll(react_user_id, actions).then((user) => {
+  await mongoose.userEnroll(react_user_id, actions).then(async (user) => {
     console.log("name: ", user.name, "solved: ", user.solved);
     current_chapter = user.solved;
 	  
-    user.solved === answers.length ? (flag = 1) : 0;
-    // 현재 풀고 있는 챕터일 경우에만 try 증가
-    //if (actions.value === `Chapter {current_chapter}`)
-    // try 증가
-    flag === 1 ? 0 : user.try++;
 	  
-	if (flag !== 1 && current_chapter === 0) {
-		actions.answer = "start";
-	  }
+	// 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
+  var flag = 0;
+  var readHintOrAnswer = 0;
+  console.log(action_name);
+  
+  switch (action_name){
+	  case "hint":
+		  if (action_name == "hint") {
+			console.log(value + "_blocks");
+			await libKakaoWork.sendMessage({
+			  conversationId: message.conversation_id,
+			  text: "힌트",
+			  blocks: hints[value + "_blocks"],
+			});
+			  readHintOrAnswer = 3;
+		  }
+		  break;
+	  case "answer":
+		  if (action_name == "answer") {
+			  console.log(value);
+				await libKakaoWork.sendMessage({
+					conversationId: message.conversation_id,
+					text: "정답",
+					blocks: answersBlock[value + "_blocks"],
+				});
+				readHintOrAnswer = 10;
+		  }
+		  break;
+	  default:
+		  user.solved === answers.length ? (flag = 1) : 0;
+			// 현재 풀고 있는 챕터일 경우에만 try 증가
+			//if (actions.value === `Chapter {current_chapter}`)
+			// try 증가
+			flag === 1 ? 0 : readHintOrAnswer++;
 
-    //정답이 맞으면 current_chapter 증가 flag 없으면 새로고침에 answer항목 없어서 에러남
+			if (flag !== 1 && current_chapter === 0) {
+				actions.answer = "start";
+			  }
 
-    // 2번 문제 답 2개 부분
-    if (
-      flag === 0 &&
-      current_chapter === 1 &&
-      answers[current_chapter].includes(actions.answer) &&
-      current_chapter < answers.length
-    ) {
-      user.solved++;
-      current_chapter++;
-    }
-    // 2번 문제 제외한 기타 문제
-    if (
-      flag === 0 &&
-      current_chapter !== 1 &&
-      actions.answer === answers[current_chapter] &&
-      current_chapter < answers.length
-    ) {
-      user.solved++;
-      current_chapter++;
-    }
-    // try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
-    if (current_chapter == answers.length && flag === 0) {
-      var curr = new Date();
-      var utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
-      var kr_curr = new Date(utc + 9 * 60 * 60 * 1000);
-      // var temp = moment(kr_curr).format("MM/DD HH:MM:ss");
-      user.date = kr_curr;
-      console.log(`new finished user: ${user.name} try: ${user.try}`);
-      flag = 1;
-    }
+			//정답이 맞으면 current_chapter 증가 flag 없으면 새로고침에 answer항목 없어서 에러남
+
+			// 2번 문제 답 2개 부분
+			if (
+			  flag === 0 &&
+			  current_chapter === 1 &&
+			  answers[current_chapter].includes(actions.answer) &&
+			  current_chapter < answers.length
+			) {
+			  user.solved++;
+			  current_chapter++;
+			}
+			// 2번 문제 제외한 기타 문제
+			if (
+			  flag === 0 &&
+			  current_chapter !== 1 &&
+			  actions.answer === answers[current_chapter] &&
+			  current_chapter < answers.length
+			) {
+			  user.solved++;
+			  current_chapter++;
+			}
+			// try 동률을 순위매기기 위해서 마지막 문제를 푼 시간을 저장
+			if (current_chapter == answers.length && flag === 0) {
+			  var curr = new Date();
+			  var utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+			  var kr_curr = new Date(utc + 9 * 60 * 60 * 1000);
+			  // var temp = moment(kr_curr).format("MM/DD HH:MM:ss");
+			  user.date = kr_curr;
+			  console.log(`new finished user: ${user.name} try: ${user.try}`);
+			  flag = 1;
+			}
+  }
+  
 	user.try += readHintOrAnswer;
-	  readHintOrAnswer = 0;
+	  //readHintOrAnswer = 0;
     // try, solved 저장
     new Promise(function (resolve, reject) {
       user.save(function (err) {
@@ -237,15 +243,16 @@ router.post("/callback", async (req, res, next) => {
         // 오류가 나서 일단 주석 처리, res.json은 하나만 있어야 함.
       }
     });
+	  
+		// 아직 다 못 푼 유저일 경우에만 다음 문제 보냄
+	  if (flag === 0 && action_name !== "hint" && action_name !== "answer") {
+		await libKakaoWork.sendMessage({
+		  conversationId: message.conversation_id,
+		  text: `Chapter ${current_chapter + 1}`,
+		  blocks: questions[`chapter${current_chapter + 1}_blocks`],
+		});
+	  }
   });
-  // 아직 다 못 푼 유저일 경우에만 다음 문제 보냄
-  if (flag === 0) {
-    await libKakaoWork.sendMessage({
-      conversationId: message.conversation_id,
-      text: `Chapter ${current_chapter + 1}`,
-      blocks: questions[`chapter${current_chapter + 1}_blocks`],
-    });
-  }
 
   res.json({ result: true });
 });
