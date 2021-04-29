@@ -10,7 +10,6 @@ const answers = require("./answers")["answers"];
 const answersBlock = require("./answers");
 
 // 챕터 변수
-let current_chapter = 0;
 
 
 mongoose.databaseInit();
@@ -75,12 +74,14 @@ router.post("/callback", async (req, res, next) => {
   
 
   await mongoose.userEnroll(react_user_id, actions).then(async (user) => {
+	var current_chapter = 0;
     console.log("name: ", user.name, "solved: ", user.solved);
     current_chapter = user.solved;
 	  
 	// 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
   var readHintOrAnswer = 0;
+  
   console.log(action_name);
   
   switch (action_name){
