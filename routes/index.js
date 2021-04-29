@@ -78,7 +78,6 @@ router.post("/callback", async (req, res, next) => {
     console.log("name: ", user.name, "solved: ", user.solved);
     current_chapter = user.solved;
 	  
-	  
 	// 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
   var readHintOrAnswer = 0;
