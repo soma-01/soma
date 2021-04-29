@@ -11,7 +11,7 @@ const answersBlock = require("./answers");
 
 // 챕터 변수
 let current_chapter = 0;
-let readHintOrAnswer = 0;
+let readHintOrAnswer = 1;
 
 mongoose.databaseInit();
 
@@ -245,7 +245,7 @@ router.post("/callback", async (req, res, next) => {
     });
   }
 
-  (action_name !== 'hint') ? res.json({ result: true }) : 0;
+  res.json({ result: true });
 });
 
 module.exports = router;
