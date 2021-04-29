@@ -672,7 +672,7 @@ const ranking_blocks = {
       type: "context",
       content: {
         type: "text",
-        text: "[카카오 판교 오피스](http://kko.to/RRWQwZQj0)",
+        text: "",
         markdown: true
       },
       image: {
@@ -680,7 +680,7 @@ const ranking_blocks = {
         url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/doc@3x.png"
       }
     };
-exports.ranking_blocks; //= [...Object.values(ranking_blocks)];
+exports.ranking_blocks = ranking_blocks; //= [...Object.values(ranking_blocks)];
 
 const rankingImages = ['https://drive.google.com/uc?export=download&id=1L8Tax449QnT1XQyLSBMlA5GyJIS6Cbff',
 					 'https://drive.google.com/uc?export=download&id=1y7SRBDfwtXGnFJSJr6zzOPR3CdRoRElv',
@@ -692,7 +692,27 @@ const rankingImages = ['https://drive.google.com/uc?export=download&id=1L8Tax449
 					 'https://drive.google.com/uc?export=download&id=1DYHqB0rWWR24j1pHAoBlAIF5hqajzM6J',
 					 'https://drive.google.com/uc?export=download&id=17lUcLjLNo_nSCmiSFpzAg7TCYgCyJR9m',
 					 'https://drive.google.com/uc?export=download&id=1Dqj_ViqrfiDFJxegTX8JVmCJAXy6eklM']
-exports.rankingImages;
+exports.rankingImages = rankingImages;
+
+exports.rankingHeader = [{
+							type: "header",
+							text: "Ranking",
+							style: "blue",
+						  },
+						 {
+						  type: "text",
+						  text: "   *등수*      *try*    *완료시각*",
+						  markdown: true
+						}];
+
+exports.refreshButton = {
+								type: "button",
+								action_type: "submit_action",
+								action_name: "refresh",
+								value: "ranking",
+								text: "새로고침",
+								style: "default",
+							  };
 
 const myRanking = {
       type: "section",
@@ -706,5 +726,5 @@ const myRanking = {
         url: "https://drive.google.com/uc?export=download&id=1q9KOvEJDiDNlPT4oJvc63DBEtElbsCJt"
       }
     }
-exports.myRanking;
+exports.myRanking = myRanking;
 

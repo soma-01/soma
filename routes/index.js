@@ -73,12 +73,8 @@ router.post("/callback", async (req, res, next) => {
     action_name,
   } = req.body;
 
-  if (current_chapter === 0) {
-    actions.answer = "start";
-  }
   // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
-
   if (action_name == "hint") {
     console.log(value + "_blocks");
     await libKakaoWork.sendMessage({
@@ -102,12 +98,7 @@ router.post("/callback", async (req, res, next) => {
 		res.json({ result: true});
 		return;
   }
-
   
-	await mongoose.userEnroll(react_user_id, actions).then(async (user) => {
-    console.log("name: ", user.name, "solved: ",user.solved);
-    current_chapter = user.solved;
-		
 
   await mongoose.userEnroll(react_user_id, actions).then((user) => {
     console.log("name: ", user.name, "solved: ", user.solved);
@@ -118,6 +109,10 @@ router.post("/callback", async (req, res, next) => {
     //if (actions.value === `Chapter {current_chapter}`)
     // try 증가
     flag === 1 ? 0 : user.try++;
+	  
+	if (flag !== 1 && current_chapter === 0) {
+		actions.answer = "start";
+	  }
 
     //정답이 맞으면 current_chapter 증가 flag 없으면 새로고침에 answer항목 없어서 에러남
 
@@ -184,26 +179,19 @@ router.post("/callback", async (req, res, next) => {
                 : 0;
             });
             // ranking 정보 문자열로 변환 추후 예쁘게 가독성 좋게
-			function makeName(name){
-				var nameStr = "";
-				var checkNum = 21;
-				var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-				// if (name.length<=10){
-					for (var i=0;i<name.length && checkNum > 0;i++) {
-						nameStr += name[i];
-						(check_kor.test(name[i])) ? checkNum -= 3 : checkNum -= 1.7;
-					}
-					console.log(checkNum);
-					for (i=0;i<checkNum;i++) nameStr += " ";
-				// } else{
-				// 	nameStr = name.slice(0,10);
-				// }
-				console.log(nameStr);
-				return nameStr;
-			}
-			var j = 1;
-			console.log(user.date);
-								  
+            function makeName(name) {
+              var nameStr = "";
+              if (name.length <= 7) {
+                for (var i = 0; i < name.length; i++) nameStr += name[i];
+                for (i = 0; i < 10 - name.length; i++) nameStr += "  ";
+              } else {
+                nameStr = name.slice(0, 10);
+              }
+              console.log(nameStr);
+              return nameStr;
+            }
+            var j = 1;
+            console.log(user.date);
             var ranking = docs.reduce(
               (a, b) =>
                 a +
@@ -213,22 +201,31 @@ router.post("/callback", async (req, res, next) => {
                 ).format("MM/DD HH:MM")}`,
               "*이름*                        *try*      *완료 시각*      \n"
             );
-			for (let i=0;i<10 && docs.length;i++){
-				
+			  
+			var rankingList = questions.rankingHeader;
+			for (let i=0;i<10 && i<docs.length;i++){
+				var tempList =  questions.ranking_blocks;
+				tempList.content.text = `${docs[i].try}회   ${moment(docs[i].date).format("MM/DD HH:MM")}\n*${docs[i].name}*`;
+				tempList.image.url = questions.rankingImages[i];
+				rankingList.push(JSON.parse(JSON.stringify(tempList)));
 			}
-			var myRanking=await mongoose.userModel.find({$and : [{solved: 10},{try : { $lte : user.try }},
-																 {date :{ $lt :new Date(`${user.date}`)}}]}).count();
-			myRanking++
-			
-            ranking_blocks = questions["ranking_blocks"];
-            ranking_blocks[1]["text"] = ranking;
-            ranking_blocks[3]["content"]["text"] = `${user.name}`;
-            ranking_blocks[4]["content"]["text"] = `${user.try}`;
-            ranking_blocks[5]["content"]["text"] = `${myRanking}위`;
+			rankingList.push(questions.refreshButton);
+
+            var myRanking = await mongoose.userModel
+              .find({
+                $and: [
+                  { solved: 7 },
+                  { try: { $lte: user.try } },
+                  { date: { $lt: new Date(`${user.date}`) } },
+                ],
+              })
+              .count();
+            myRanking++;
+			  
             await libKakaoWork.sendMessage({
               conversationId: message.conversation_id,
               text: "Ranking",
-              blocks: ranking_blocks,
+              blocks: rankingList,
             });
           }
         );
@@ -237,7 +234,7 @@ router.post("/callback", async (req, res, next) => {
     });
   });
   // 아직 다 못 푼 유저일 경우에만 다음 문제 보냄
-  if (flag === 0 && action_name !== 'hint') {
+  if (flag === 0) {
     await libKakaoWork.sendMessage({
       conversationId: message.conversation_id,
       text: `Chapter ${current_chapter + 1}`,
