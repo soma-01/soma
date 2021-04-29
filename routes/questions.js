@@ -23,6 +23,11 @@ const chapter1_blocks = {
     text: "#1 시작",
     style: "blue",
   },
+  image: {
+    type: "image_link",
+    url:
+      "https://drive.google.com/uc?id=1ff8GJ7-bgs9Pv0j6OzVLBe0Dq9cnkxRx",
+  },
   text: {
     type: "text",
     textArray: [
@@ -40,6 +45,8 @@ const chapter1_blocks = {
       "정답은 a-z | 0-9로 구성하였습니다.",
       "",
       "*정답 입력*은 *정답* 버튼을 클릭 후 입력해주시면 됩니다.",
+      "",
+	  "정답을 제출 하였을 때 같은 문제가 다시 나오면 틀린 정답이고 다음 챕터가 나올 경우에 옳은 정답입니다!",
       "",
       "*주의*: *힌트*나 *정답보기*를 많이 보실시에는 랭킹 산정에 *지장*이 갈 수 있습니다.",
       "",
