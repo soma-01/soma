@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 let User = new mongoose.Schema({
   id: { type: String, require: true, unique: true},
-  name: { type: String},
+  name: { type: String, default: '익명소마' },
   date: { type: Date, required: true },
   solved: { type: Number, required: true },
   try: { type: Number, required: true },
@@ -36,7 +36,7 @@ async function userEnroll(react_user_id,actions){
 			}
 		  var newUser = new userModel({
 			id: react_user_id,
-			name: actions.name,
+			name: (actions.name === null) ? "익명소마" : actions.name,
 			date: new Date(),
 			solved: 0,
 			try: 0,

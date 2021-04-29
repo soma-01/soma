@@ -11,7 +11,7 @@ const answersBlock = require("./answers");
 
 // 챕터 변수
 let current_chapter = 0;
-let readHintOrAnswer = 0;
+let readHintOrAnswer = 1;
 
 mongoose.databaseInit();
 
@@ -73,9 +73,6 @@ router.post("/callback", async (req, res, next) => {
     action_name,
   } = req.body;
 
-  if (current_chapter === 0) {
-    actions.answer = "start";
-  }
   // 아직 문제 풀이 중인 유저는 0, 다 푼 유저는 1
   var flag = 0;
   if (action_name == "hint") {
@@ -101,6 +98,7 @@ router.post("/callback", async (req, res, next) => {
 		res.json({ result: true});
 		return;
   }
+  
 
   await mongoose.userEnroll(react_user_id, actions).then((user) => {
     console.log("name: ", user.name, "solved: ", user.solved);
@@ -111,6 +109,10 @@ router.post("/callback", async (req, res, next) => {
     //if (actions.value === `Chapter {current_chapter}`)
     // try 증가
     flag === 1 ? 0 : user.try++;
+	  
+	if (flag !== 1 && current_chapter === 0) {
+		actions.answer = "start";
+	  }
 
     //정답이 맞으면 current_chapter 증가 flag 없으면 새로고침에 answer항목 없어서 에러남
 
@@ -199,6 +201,15 @@ router.post("/callback", async (req, res, next) => {
                 ).format("MM/DD HH:MM")}`,
               "*이름*                        *try*      *완료 시각*      \n"
             );
+			  
+			var rankingList = questions.rankingHeader;
+			for (let i=0;i<10 && i<docs.length;i++){
+				var tempList =  questions.ranking_blocks;
+				tempList.content.text = `${docs[i].try}회   ${moment(docs[i].date).format("MM/DD HH:MM")}\n*${docs[i].name}*`;
+				tempList.image.url = questions.rankingImages[i];
+				rankingList.push(JSON.parse(JSON.stringify(tempList)));
+			}
+			rankingList.push(questions.refreshButton);
 
             var myRanking = await mongoose.userModel
               .find({
@@ -210,16 +221,11 @@ router.post("/callback", async (req, res, next) => {
               })
               .count();
             myRanking++;
-
-            ranking_blocks = questions["ranking_blocks"];
-            ranking_blocks[1]["text"] = ranking;
-            ranking_blocks[3]["content"]["text"] = `${user.name}`;
-            ranking_blocks[4]["content"]["text"] = `${user.try}`;
-            ranking_blocks[5]["content"]["text"] = `${myRanking}위`;
+			  
             await libKakaoWork.sendMessage({
               conversationId: message.conversation_id,
               text: "Ranking",
-              blocks: ranking_blocks,
+              blocks: rankingList,
             });
           }
         );

@@ -669,69 +669,62 @@ exports.chapter10_blocks = appendTextFromObject(chapter10_blocks);
 
 // rakning 페이지 blocks를 하나 더 생성
 const ranking_blocks = {
-  header: {
-    type: "header",
-    text: "Ranking",
-    style: "blue",
-  },
-  text1: {
-    type: "text",
-    text: [],
-    markdown: true,
-  },
-  divider: {
-    type: "divider",
-  },
-  userText: {
-    type: "description",
-    term: "유저",
-    content: {
-      type: "text",
-      text: "",
-      markdown: false,
-    },
-    accent: true,
-  },
-  tryText: {
-    type: "description",
-    term: "try",
-    content: {
-      type: "text",
-      text: "",
-      markdown: false,
-    },
-    accent: true,
-  },
-  rankText: {
-    type: "description",
-    term: "순위",
-    content: {
-      type: "text",
-      text: "",
-      markdown: false,
-    },
-    accent: true,
-  },
-  button: {
-    type: "button",
-    action_type: "submit_action",
-    action_name: "refresh",
-    value: "ranking",
-    text: "새로고침",
-    style: "default",
-  },
-  // action: {
-  // type: "action",
-  // elements: [
-  // 	  {
-  // 		type: "button",
-  // 		action_type: "submit_action",
-  // 		action_name: "refresh",
-  // 		value: "ranking",
-  // 		text: "새로고침",
-  // 		style: "default",
-  // 		},
-  // 	]
-  // },
-};
-exports.ranking_blocks = [...Object.values(ranking_blocks)];
+      type: "context",
+      content: {
+        type: "text",
+        text: "",
+        markdown: true
+      },
+      image: {
+        type: "image_link",
+        url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/doc@3x.png"
+      }
+    };
+exports.ranking_blocks = ranking_blocks; //= [...Object.values(ranking_blocks)];
+
+const rankingImages = ['https://drive.google.com/uc?export=download&id=1L8Tax449QnT1XQyLSBMlA5GyJIS6Cbff',
+					 'https://drive.google.com/uc?export=download&id=1y7SRBDfwtXGnFJSJr6zzOPR3CdRoRElv',
+					 'https://drive.google.com/file/d/15IenfU1vm0a6yJSlDdMbnHn0v22AgN9n/view?usp=sharing',
+					 'https://drive.google.com/file/d/1cdkFlvJvZxLfrYbjV12EpJhpEb-3IJ1o/view?usp=sharing',
+					 'https://drive.google.com/file/d/1Ud-eKIwv3EFBo_Z3Y3oSbcLEBCekavIJ/view?usp=sharing',
+					 'https://drive.google.com/file/d/1wcuwA1mglXGnG2cMQrYDHQvIxadtS8WB/view?usp=sharing',
+					 'https://drive.google.com/file/d/1ve9r25rrJ9bNLI_suOeG-Kf-5jvpQSEq/view?usp=sharing',
+					 'https://drive.google.com/uc?export=download&id=1DYHqB0rWWR24j1pHAoBlAIF5hqajzM6J',
+					 'https://drive.google.com/uc?export=download&id=17lUcLjLNo_nSCmiSFpzAg7TCYgCyJR9m',
+					 'https://drive.google.com/uc?export=download&id=1Dqj_ViqrfiDFJxegTX8JVmCJAXy6eklM']
+exports.rankingImages = rankingImages;
+
+exports.rankingHeader = [{
+							type: "header",
+							text: "Ranking",
+							style: "blue",
+						  },
+						 {
+						  type: "text",
+						  text: "   *등수*      *try*    *완료시각*",
+						  markdown: true
+						}];
+
+exports.refreshButton = {
+								type: "button",
+								action_type: "submit_action",
+								action_name: "refresh",
+								value: "ranking",
+								text: "새로고침",
+								style: "default",
+							  };
+
+const myRanking = {
+      type: "section",
+      content: {
+        type: "text",
+        text: "카카오엔터프라이즈의\n업무용메신저\n*카카오워크*",
+        markdown: true
+      },
+      accessory: {
+        type: "image_link",
+        url: "https://drive.google.com/uc?export=download&id=1q9KOvEJDiDNlPT4oJvc63DBEtElbsCJt"
+      }
+    }
+exports.myRanking = myRanking;
+
